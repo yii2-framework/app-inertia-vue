@@ -21,6 +21,7 @@ final class CreateAdminUserTest extends \Codeception\Test\Unit
         $db = Yii::$app->db;
         $migration = new M260403000000CreateAdminUser(['db' => $db]);
 
+        $db->createCommand()->delete('{{%user}}', ['username' => 'admin'])->execute();
         $migration->up();
 
         $admin = User::find()->where(['username' => 'admin'])->one();

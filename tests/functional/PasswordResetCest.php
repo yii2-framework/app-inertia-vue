@@ -117,5 +117,13 @@ final class PasswordResetCest
             ['ResetPasswordForm' => ['password' => 'newpassword123']],
         );
         $I->seeResponseCodeIs(302);
+
+        $user->refresh();
+
+        Assert::assertNull($user->password_reset_token, 'Password reset token should be cleared after reset.');
+        Assert::assertTrue(
+            Yii::$app->security->validatePassword('newpassword123', $user->password_hash),
+            'Password should be updated to the new value.',
+        );
     }
 }

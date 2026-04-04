@@ -131,8 +131,8 @@ final class SignupFormTest extends \Codeception\Test\Unit
         $supportEmail = Yii::$app->params['supportEmail'] ?? '';
 
         verify($model->signup(Yii::$app->mailer, $supportEmail, Yii::$app->name))
-            ->empty(
-                'Failed asserting that signup fails with duplicate username and email.',
+            ->null(
+                'Failed asserting that validation failure returns null.',
             );
         verify($model->getErrors('username'))
             ->notEmpty(

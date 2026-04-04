@@ -181,6 +181,15 @@ final class PasswordResetRequestFormTest extends \Codeception\Test\Unit
                 $supportEmail,
                 'Failed asserting that email is sent from the support address.',
             );
+
+        /** @phpstan-var \yii\symfonymailer\Message $emailMessage */
+        $body = $emailMessage->getSymfonyEmail()->getHtmlBody() . $emailMessage->getSymfonyEmail()->getTextBody();
+
+        verify($body)
+            ->stringContainsString(
+                $user->password_reset_token,
+                'Failed asserting that email body contains the password reset token.',
+            );
     }
 
     public function testSendMessageWithWrongEmailAddress(): void

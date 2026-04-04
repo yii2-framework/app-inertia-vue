@@ -87,6 +87,10 @@ final class VerifyEmailCest
                 'status' => User::STATUS_ACTIVE,
             ],
         );
+
+        $user->refresh();
+
+        Assert::assertNull($user->verification_token, 'Verification token should be cleared after use.');
     }
 
     public function checkVerificationFailsWhenSaveErrors(FunctionalTester $I): void
