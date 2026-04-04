@@ -186,15 +186,17 @@ const fieldError = (field) => {
                                     <Link
                                         href="/user/signup"
                                         class="font-semibold text-primary-600 dark:text-primary-400 hover:underline"
-                                        >Sign up</Link
                                     >
+                                        Sign up
+                                    </Link>
                                 </p>
                                 <div class="flex justify-center gap-3 text-sm">
                                     <Link
                                         href="/user/request-password-reset"
                                         class="text-primary-600 dark:text-primary-400 hover:underline"
-                                        >Forgot password</Link
                                     >
+                                        Forgot password
+                                    </Link>
                                     <span
                                         class="text-gray-300 dark:text-gray-600"
                                         >|</span
@@ -202,8 +204,9 @@ const fieldError = (field) => {
                                     <Link
                                         href="/user/resend-verification-email"
                                         class="text-primary-600 dark:text-primary-400 hover:underline"
-                                        >Resend verification</Link
                                     >
+                                        Resend verification
+                                    </Link>
                                 </div>
                             </div>
                         </div>

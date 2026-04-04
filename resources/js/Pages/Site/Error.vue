@@ -40,8 +40,9 @@ const props = defineProps({
             <Link
                 href="/"
                 class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-                >Go to Homepage</Link
             >
+                Go to Homepage
+            </Link>
         </div>
     </div>
 </template>

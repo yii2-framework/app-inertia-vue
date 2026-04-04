@@ -27,36 +27,42 @@ const open = ref(false);
                         <Link
                             href="/"
                             class="px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md transition-colors"
-                            >Home</Link
                         >
+                            Home
+                        </Link>
                         <Link
                             href="/site/about"
                             class="px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md transition-colors"
-                            >About</Link
                         >
+                            About
+                        </Link>
                         <Link
                             href="/site/contact"
                             class="px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md transition-colors"
-                            >Contact</Link
                         >
+                            Contact
+                        </Link>
                         <Link
                             v-if="page.props.auth.canViewUsers"
                             href="/user/index"
                             class="px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md transition-colors"
-                            >Users</Link
                         >
+                            Users
+                        </Link>
                         <Link
                             v-if="page.props.auth.isGuest"
                             href="/user/signup"
                             class="px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md transition-colors"
-                            >Signup</Link
                         >
+                            Signup
+                        </Link>
                         <Link
                             v-if="page.props.auth.isGuest"
                             href="/user/login"
                             class="px-3 py-2 text-sm font-medium text-primary-400 hover:text-primary-300 rounded-md transition-colors"
-                            >Login</Link
                         >
+                            Login
+                        </Link>
                         <Link
                             v-if="!page.props.auth.isGuest"
                             href="/user/logout"
@@ -76,9 +82,9 @@ const open = ref(false);
                         <ThemeToggle />
                         <button
                             class="p-2 text-gray-400 hover:text-white rounded-md transition-colors"
-                            @click="open = !open"
                             :aria-expanded="open"
                             aria-label="Toggle navigation"
+                            @click="open = !open"
                         >
                             <svg
                                 class="w-5 h-5"
@@ -114,36 +120,42 @@ const open = ref(false);
                     <Link
                         href="/"
                         class="block px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md"
-                        >Home</Link
                     >
+                        Home
+                    </Link>
                     <Link
                         href="/site/about"
                         class="block px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md"
-                        >About</Link
                     >
+                        About
+                    </Link>
                     <Link
                         href="/site/contact"
                         class="block px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md"
-                        >Contact</Link
                     >
+                        Contact
+                    </Link>
                     <Link
                         v-if="page.props.auth.canViewUsers"
                         href="/user/index"
                         class="block px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md"
-                        >Users</Link
                     >
+                        Users
+                    </Link>
                     <Link
                         v-if="page.props.auth.isGuest"
                         href="/user/signup"
                         class="block px-3 py-2 text-sm text-gray-400 hover:text-white rounded-md"
-                        >Signup</Link
                     >
+                        Signup
+                    </Link>
                     <Link
                         v-if="page.props.auth.isGuest"
                         href="/user/login"
                         class="block px-3 py-2 text-sm font-medium text-primary-400 rounded-md"
-                        >Login</Link
                     >
+                        Login
+                    </Link>
                     <Link
                         v-if="!page.props.auth.isGuest"
                         href="/user/logout"

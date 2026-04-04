@@ -204,8 +204,9 @@ const fieldError = (field) => {
                                 <Link
                                     href="/user/login"
                                     class="font-semibold text-primary-600 dark:text-primary-400 hover:underline"
-                                    >Login</Link
                                 >
+                                    Login
+                                </Link>
                             </p>
                         </div>
                     </div>

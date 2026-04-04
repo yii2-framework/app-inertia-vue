@@ -63,8 +63,9 @@ const fieldError = (field) => {
             <Link
                 href="/site/contact"
                 class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-                >Send another message</Link
             >
+                Send another message
+            </Link>
         </div>
     </div>
 
@@ -281,7 +282,7 @@ const fieldError = (field) => {
                                             : 'border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring-primary-500/25',
                                     ]"
                                     placeholder="Your message..."
-                                ></textarea>
+                                />
                                 <p
                                     v-if="fieldError('body')"
                                     class="text-red-600 dark:text-red-400 text-sm mt-1"
@@ -294,10 +295,10 @@ const fieldError = (field) => {
                                 class="flex items-center justify-between gap-4 flex-wrap"
                             >
                                 <VueTurnstile
-                                    :site-key="page.props.turnstileSiteKey"
                                     v-model="
                                         form['ContactForm[turnstileToken]']
                                     "
+                                    :site-key="page.props.turnstileSiteKey"
                                     theme="auto"
                                 />
                                 <button
