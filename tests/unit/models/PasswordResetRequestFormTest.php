@@ -185,9 +185,15 @@ final class PasswordResetRequestFormTest extends \Codeception\Test\Unit
         /** @phpstan-var \yii\symfonymailer\Message $emailMessage */
         $body = $emailMessage->getSymfonyEmail()->getHtmlBody() . $emailMessage->getSymfonyEmail()->getTextBody();
 
+        verify($user->password_reset_token)
+            ->notNull('Failed asserting that user has a password reset token.');
+
+        /** @phpstan-var string $token */
+        $token = $user->password_reset_token;
+
         verify($body)
             ->stringContainsString(
-                $user->password_reset_token,
+                $token,
                 'Failed asserting that email body contains the password reset token.',
             );
     }

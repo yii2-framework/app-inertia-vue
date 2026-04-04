@@ -62,6 +62,12 @@ return [
                     'token' => Yii::$app->request->getCsrfToken(),
                 ],
                 'appName' => static fn(): string => Yii::$app->name,
+                'turnstileSiteKey' => static function (): string {
+                    /** @phpstan-var string $key */
+                    $key = Yii::$app->params['turnstile.siteKey'] ?? '';
+
+                    return $key;
+                },
             ],
         ],
         'inertiaVue' => [

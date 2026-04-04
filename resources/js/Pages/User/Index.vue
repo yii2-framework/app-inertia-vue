@@ -60,17 +60,24 @@ const buildParams = () => {
     return params
 }
 
-const applyFilters = () => {
+const cancelPendingFilter = () => {
     clearTimeout(debounceTimer)
+    debounceTimer = null
+}
+
+const applyFilters = () => {
+    cancelPendingFilter()
     debounceTimer = setTimeout(() => {
         router.get('/user/index', buildParams(), { preserveState: true, preserveScroll: true })
+        debounceTimer = null
     }, 300)
 }
 
 watch([filterUsername, filterEmail, filterStatus], applyFilters)
-onUnmounted(() => clearTimeout(debounceTimer))
+onUnmounted(cancelPendingFilter)
 
 const sortBy = (attribute) => {
+    cancelPendingFilter()
     const currentOrder = props.sort.attributes[attribute]
     const params = buildParams()
     params.sort = currentOrder === 4 ? `-${attribute}` : attribute
@@ -82,6 +89,7 @@ const goToPage = (page) => {
         return
     }
 
+    cancelPendingFilter()
     router.get('/user/index', { ...buildParams(), page }, { preserveState: true, preserveScroll: true })
 }
 

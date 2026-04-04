@@ -14,7 +14,7 @@ const getPreferred = () => {
     return mediaQuery.matches ? 'dark' : 'light'
 }
 
-const apply = (value) => {
+const apply = (value, persist = true) => {
     theme.value = value
 
     if (value === 'dark') {
@@ -23,7 +23,9 @@ const apply = (value) => {
         document.documentElement.classList.remove('dark')
     }
 
-    localStorage.setItem('theme', value)
+    if (persist) {
+        localStorage.setItem('theme', value)
+    }
 }
 
 const toggle = () => {
@@ -32,12 +34,19 @@ const toggle = () => {
 
 const handleSystemThemeChange = (e) => {
     if (!localStorage.getItem('theme')) {
-        apply(e.matches ? 'dark' : 'light')
+        apply(e.matches ? 'dark' : 'light', false)
     }
 }
 
 onMounted(() => {
-    apply(getPreferred())
+    const stored = localStorage.getItem('theme')
+
+    if (stored) {
+        apply(stored)
+    } else {
+        apply(getPreferred(), false)
+    }
+
     mediaQuery.addEventListener('change', handleSystemThemeChange)
 })
 
