@@ -38,6 +38,7 @@ final class LoginFormCest
             ['LoginForm' => ['username' => '', 'password' => '']],
         );
         $I->seeResponseCodeIs(302);
+        $I->seeInCurrentUrl('/user/login');
     }
 
     public function checkInactiveAccount(FunctionalTester $I): void
@@ -48,6 +49,7 @@ final class LoginFormCest
             ['LoginForm' => ['username' => 'test.test', 'password' => 'Test1234']],
         );
         $I->seeResponseCodeIs(302);
+        $I->seeInCurrentUrl('/user/login');
     }
 
     public function checkValidLogin(FunctionalTester $I): void
@@ -68,5 +70,6 @@ final class LoginFormCest
             ['LoginForm' => ['username' => 'erau', 'password' => 'wrong']],
         );
         $I->seeResponseCodeIs(302);
+        $I->seeInCurrentUrl('/user/login');
     }
 }

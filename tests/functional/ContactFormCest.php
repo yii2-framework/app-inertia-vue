@@ -37,6 +37,7 @@ final class ContactFormCest
             ],
         );
         $I->seeResponseCodeIs(302);
+        $I->dontSeeEmailIsSent();
     }
 
     public function submitFormSuccessfully(FunctionalTester $I): void
@@ -75,5 +76,6 @@ final class ContactFormCest
             ],
         );
         $I->seeResponseCodeIs(302);
+        $I->dontSeeEmailIsSent();
     }
 }

@@ -52,6 +52,7 @@ final class SignupCest
             ['SignupForm' => ['username' => '', 'email' => '', 'password' => '']],
         );
         $I->seeResponseCodeIs(302);
+        $I->dontSeeEmailIsSent();
     }
 
     public function signupWithWrongEmail(FunctionalTester $I): void
@@ -61,12 +62,14 @@ final class SignupCest
             Url::toRoute('/user/signup'),
             [
                 'SignupForm' => [
-                    'username' => 'tester',
+                    'username' => 'tester_wrong_email',
                     'email' => 'ttttt',
                     'password' => 'tester_password',
                 ],
             ],
         );
         $I->seeResponseCodeIs(302);
+        $I->dontSeeRecord(User::class, ['username' => 'tester_wrong_email']);
+        $I->dontSeeEmailIsSent();
     }
 }

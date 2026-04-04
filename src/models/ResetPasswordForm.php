@@ -32,7 +32,7 @@ class ResetPasswordForm extends Model
      */
     public function __construct(string $token, array $config = [])
     {
-        if ($token === '') {
+        if (trim($token) === '') {
             throw new InvalidArgumentException('Password reset token cannot be blank.');
         }
 
