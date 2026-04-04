@@ -75,10 +75,17 @@ final class ContactFormTest extends \Codeception\Test\Unit
                 'very important letter subject',
                 "Failed asserting that email 'subject' matches the form input.",
             );
-        verify($emailMessage->getSymfonyEmail()->getTextBody())
+        $textBody = $emailMessage->getSymfonyEmail()->getTextBody();
+
+        verify($textBody)
             ->stringContainsString(
                 'body of current message',
                 "Failed asserting that email 'body' contains the form message.",
+            );
+        verify($textBody)
+            ->stringContainsString(
+                '(555) 123-4567',
+                "Failed asserting that email 'body' contains the phone number.",
             );
     }
 }

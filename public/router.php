@@ -6,10 +6,19 @@
  * Usage: php -S localhost:8080 -t public public/router.php
  */
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = (string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$decodedPath = rawurldecode($path);
+$publicDir = realpath(__DIR__);
+$candidate = realpath(__DIR__ . $decodedPath);
 
 // Serve existing static files directly (CSS, JS, images, etc.)
-if ($path !== '/' && is_file(__DIR__ . $path)) {
+if (
+    $decodedPath !== '/'
+    && $publicDir !== false
+    && $candidate !== false
+    && strncmp($candidate, $publicDir . DIRECTORY_SEPARATOR, strlen($publicDir . DIRECTORY_SEPARATOR)) === 0
+    && is_file($candidate)
+) {
     return false;
 }
 

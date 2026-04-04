@@ -58,7 +58,7 @@ const fieldError = (field) => {
                             <div class="mb-4">
                                 <label for="login-username" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Your Username</label>
                                 <div :class="['flex border rounded-lg overflow-hidden transition-all focus-within:ring-2', fieldError('username') ? 'border-red-500 focus-within:ring-red-500/25' : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25']">
-                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400">&#128100;</span>
+                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true">&#128100;</span>
                                     <input id="login-username" v-model="form['LoginForm[username]']" type="text" class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="admin" autofocus />
                                 </div>
                                 <p v-if="fieldError('username')" class="text-red-600 dark:text-red-400 text-sm mt-1">{{ fieldError('username') }}</p>
@@ -67,7 +67,7 @@ const fieldError = (field) => {
                             <div class="mb-4">
                                 <label for="login-password" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Your Password</label>
                                 <div :class="['flex border rounded-lg overflow-hidden transition-all focus-within:ring-2', fieldError('password') ? 'border-red-500 focus-within:ring-red-500/25' : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25']">
-                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400">&#128274;</span>
+                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true">&#128274;</span>
                                     <input id="login-password" v-model="form['LoginForm[password]']" type="password" class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="admin" />
                                 </div>
                                 <p v-if="fieldError('password')" class="text-red-600 dark:text-red-400 text-sm mt-1">{{ fieldError('password') }}</p>

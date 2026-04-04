@@ -90,7 +90,7 @@ const fieldError = (field) => {
                                 <div>
                                     <label for="contact-name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Your Name</label>
                                     <div :class="['flex border rounded-lg overflow-hidden transition-all focus-within:ring-2', fieldError('name') ? 'border-red-500 focus-within:ring-red-500/25' : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25']">
-                                        <span class="flex items-center justify-center pl-3 pr-2 text-gray-400">&#128100;</span>
+                                        <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true">&#128100;</span>
                                         <input id="contact-name" v-model="form['ContactForm[name]']" type="text" class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="Name" autofocus />
                                     </div>
                                     <p v-if="fieldError('name')" class="text-red-600 dark:text-red-400 text-sm mt-1">{{ fieldError('name') }}</p>
@@ -99,7 +99,7 @@ const fieldError = (field) => {
                                 <div>
                                     <label for="contact-email" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Your Email</label>
                                     <div :class="['flex border rounded-lg overflow-hidden transition-all focus-within:ring-2', fieldError('email') ? 'border-red-500 focus-within:ring-red-500/25' : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25']">
-                                        <span class="flex items-center justify-center pl-3 pr-2 text-gray-400">&#9993;</span>
+                                        <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true">&#9993;</span>
                                         <input id="contact-email" v-model="form['ContactForm[email]']" type="email" class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="email@example.com" />
                                     </div>
                                     <p v-if="fieldError('email')" class="text-red-600 dark:text-red-400 text-sm mt-1">{{ fieldError('email') }}</p>
@@ -109,7 +109,7 @@ const fieldError = (field) => {
                             <div class="mb-4">
                                 <label for="contact-phone" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Phone</label>
                                 <div :class="['flex border rounded-lg overflow-hidden transition-all focus-within:ring-2', fieldError('phone') ? 'border-red-500 focus-within:ring-red-500/25' : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25']">
-                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400">&#128222;</span>
+                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true">&#128222;</span>
                                     <input id="contact-phone" :value="form['ContactForm[phone]']" type="text" class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="(999) 999-9999" @input="maskPhone" />
                                 </div>
                                 <p v-if="fieldError('phone')" class="text-red-600 dark:text-red-400 text-sm mt-1">{{ fieldError('phone') }}</p>
@@ -118,7 +118,7 @@ const fieldError = (field) => {
                             <div class="mb-4">
                                 <label for="contact-subject" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Subject</label>
                                 <div :class="['flex border rounded-lg overflow-hidden transition-all focus-within:ring-2', fieldError('subject') ? 'border-red-500 focus-within:ring-red-500/25' : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25']">
-                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400">&#128172;</span>
+                                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true">&#128172;</span>
                                     <input id="contact-subject" v-model="form['ContactForm[subject]']" type="text" class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400" placeholder="Subject" />
                                 </div>
                                 <p v-if="fieldError('subject')" class="text-red-600 dark:text-red-400 text-sm mt-1">{{ fieldError('subject') }}</p>

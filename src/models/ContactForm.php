@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\models;
 
 use yii\base\Model;
+use yii\helpers\Json;
 use yii\mail\MailerInterface;
 
 /**
@@ -38,12 +39,14 @@ class ContactForm extends Model
     public function contact(MailerInterface $mailer, string $email, string $senderEmail, string $senderName): bool
     {
         if ($this->validate()) {
+            $messageBody = "Name: {$this->name}\nEmail: {$this->email}\nPhone: {$this->phone}\n\n{$this->body}";
+
             return $mailer->compose()
                 ->setTo($email)
                 ->setFrom([$senderEmail => $senderName])
                 ->setReplyTo([$this->email => $this->name])
                 ->setSubject($this->subject)
-                ->setTextBody($this->body)
+                ->setTextBody($messageBody)
                 ->send();
         }
 
@@ -96,6 +99,13 @@ class ContactForm extends Model
         $secretKey = \Yii::$app->params['turnstile.secretKey'] ?? '';
 
         if ($secretKey === '') {
+            if (YII_ENV_TEST) {
+                return;
+            }
+
+            \Yii::error('Turnstile secret key is not configured.', __METHOD__);
+            $this->addError($attribute, 'CAPTCHA verification is temporarily unavailable.');
+
             return;
         }
 
@@ -118,10 +128,17 @@ class ContactForm extends Model
             return;
         }
 
-        /** @phpstan-var array{success: bool} $result */
-        $result = json_decode($response, true);
+        try {
+            /** @var array{success: bool} $result */
+            $result = Json::decode($response);
+        } catch (\yii\base\InvalidArgumentException) {
+            \Yii::warning('Turnstile response is not valid JSON.', __METHOD__);
+            $this->addError($attribute, 'CAPTCHA verification failed. Please try again.');
 
-        if (!$result['success']) {
+            return;
+        }
+
+        if (!($result['success'] ?? false)) {
             $this->addError($attribute, 'CAPTCHA verification failed. Please try again.');
         }
     }
