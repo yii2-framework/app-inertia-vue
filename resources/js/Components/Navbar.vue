@@ -8,7 +8,11 @@ const open = ref(false);
 
 const isActive = (href) => {
     const current = page.url;
-    return current === href || current.startsWith(href + "?") || current.startsWith(href + "/");
+    return (
+        current === href ||
+        current.startsWith(href + "?") ||
+        current.startsWith(href + "/")
+    );
 };
 </script>
 
@@ -31,40 +35,70 @@ const isActive = (href) => {
                     <div class="hidden md:flex items-center gap-1">
                         <Link
                             href="/"
-                            :class="['px-3 py-2 text-sm rounded-md transition-colors', isActive('/') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                            :class="[
+                                'px-3 py-2 text-sm rounded-md transition-colors',
+                                isActive('/')
+                                    ? 'text-primary-400 font-medium'
+                                    : 'text-gray-400 hover:text-white',
+                            ]"
                         >
                             Home
                         </Link>
                         <Link
                             href="/site/about"
-                            :class="['px-3 py-2 text-sm rounded-md transition-colors', isActive('/site/about') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                            :class="[
+                                'px-3 py-2 text-sm rounded-md transition-colors',
+                                isActive('/site/about')
+                                    ? 'text-primary-400 font-medium'
+                                    : 'text-gray-400 hover:text-white',
+                            ]"
                         >
                             About
                         </Link>
                         <Link
                             href="/site/contact"
-                            :class="['px-3 py-2 text-sm rounded-md transition-colors', isActive('/site/contact') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                            :class="[
+                                'px-3 py-2 text-sm rounded-md transition-colors',
+                                isActive('/site/contact')
+                                    ? 'text-primary-400 font-medium'
+                                    : 'text-gray-400 hover:text-white',
+                            ]"
                         >
                             Contact
                         </Link>
                         <Link
                             v-if="page.props.auth.canViewUsers"
                             href="/user/index"
-                            :class="['px-3 py-2 text-sm rounded-md transition-colors', isActive('/user/index') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                            :class="[
+                                'px-3 py-2 text-sm rounded-md transition-colors',
+                                isActive('/user/index')
+                                    ? 'text-primary-400 font-medium'
+                                    : 'text-gray-400 hover:text-white',
+                            ]"
                         >
                             Users
                         </Link>
                         <Link
                             v-if="page.props.auth.isGuest"
                             href="/user/signup"
-                            :class="['px-3 py-2 text-sm rounded-md transition-colors', isActive('/user/signup') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                            :class="[
+                                'px-3 py-2 text-sm rounded-md transition-colors',
+                                isActive('/user/signup')
+                                    ? 'text-primary-400 font-medium'
+                                    : 'text-gray-400 hover:text-white',
+                            ]"
                         >
                             Signup
                         </Link>
                         <Link
                             v-if="page.props.auth.isGuest"
                             href="/user/login"
-                            :class="['px-3 py-2 text-sm rounded-md transition-colors', isActive('/user/login') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                            :class="[
+                                'px-3 py-2 text-sm rounded-md transition-colors',
+                                isActive('/user/login')
+                                    ? 'text-primary-400 font-medium'
+                                    : 'text-gray-400 hover:text-white',
+                            ]"
                         >
                             Login
                         </Link>
@@ -124,40 +158,70 @@ const isActive = (href) => {
                 <div class="px-4 py-3 space-y-1">
                     <Link
                         href="/"
-                        :class="['block px-3 py-2 text-sm rounded-md', isActive('/') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                        :class="[
+                            'block px-3 py-2 text-sm rounded-md',
+                            isActive('/')
+                                ? 'text-primary-400 font-medium'
+                                : 'text-gray-400 hover:text-white',
+                        ]"
                     >
                         Home
                     </Link>
                     <Link
                         href="/site/about"
-                        :class="['block px-3 py-2 text-sm rounded-md', isActive('/site/about') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                        :class="[
+                            'block px-3 py-2 text-sm rounded-md',
+                            isActive('/site/about')
+                                ? 'text-primary-400 font-medium'
+                                : 'text-gray-400 hover:text-white',
+                        ]"
                     >
                         About
                     </Link>
                     <Link
                         href="/site/contact"
-                        :class="['block px-3 py-2 text-sm rounded-md', isActive('/site/contact') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                        :class="[
+                            'block px-3 py-2 text-sm rounded-md',
+                            isActive('/site/contact')
+                                ? 'text-primary-400 font-medium'
+                                : 'text-gray-400 hover:text-white',
+                        ]"
                     >
                         Contact
                     </Link>
                     <Link
                         v-if="page.props.auth.canViewUsers"
                         href="/user/index"
-                        :class="['block px-3 py-2 text-sm rounded-md', isActive('/user/index') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                        :class="[
+                            'block px-3 py-2 text-sm rounded-md',
+                            isActive('/user/index')
+                                ? 'text-primary-400 font-medium'
+                                : 'text-gray-400 hover:text-white',
+                        ]"
                     >
                         Users
                     </Link>
                     <Link
                         v-if="page.props.auth.isGuest"
                         href="/user/signup"
-                        :class="['block px-3 py-2 text-sm rounded-md', isActive('/user/signup') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                        :class="[
+                            'block px-3 py-2 text-sm rounded-md',
+                            isActive('/user/signup')
+                                ? 'text-primary-400 font-medium'
+                                : 'text-gray-400 hover:text-white',
+                        ]"
                     >
                         Signup
                     </Link>
                     <Link
                         v-if="page.props.auth.isGuest"
                         href="/user/login"
-                        :class="['block px-3 py-2 text-sm rounded-md', isActive('/user/login') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white']"
+                        :class="[
+                            'block px-3 py-2 text-sm rounded-md',
+                            isActive('/user/login')
+                                ? 'text-primary-400 font-medium'
+                                : 'text-gray-400 hover:text-white',
+                        ]"
                     >
                         Login
                     </Link>

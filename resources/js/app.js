@@ -12,19 +12,11 @@ if (!appEl || !payloadEl?.textContent) {
 
 const pageData = JSON.parse(payloadEl.textContent);
 
-// Include X-CSRF-Token in every Inertia request.
-// The server uses validateCsrfHeaderOnly=true: it only checks that the
-// header is present (not its value).  CORS prevents cross-origin JS from
-// setting custom headers, so presence alone proves same-origin.
-// Fallback "1" handles the case where getCsrfToken() returns null under
-// validateCsrfHeaderOnly mode.
-const csrfToken =
-    pageData?.props?.csrf?.token ||
-    document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ||
-    "1";
-
+// CSRF: the server uses validateCsrfHeaderOnly=true — it only checks that the
+// header is present, not its value.  CORS prevents cross-origin JS from setting
+// custom headers, so presence alone proves same-origin.
 router.on("before", (event) => {
-    event.detail.visit.headers["X-CSRF-Token"] = csrfToken;
+  event.detail.visit.headers["X-CSRF-Token"] = "same-origin";
 });
 
 createInertiaApp({
