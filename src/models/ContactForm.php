@@ -111,6 +111,7 @@ class ContactForm extends Model
                 return;
             }
 
+            // @codeCoverageIgnoreStart
             Yii::error(
                 'Turnstile secret key is not configured.',
                 __METHOD__,
@@ -119,6 +120,7 @@ class ContactForm extends Model
             $this->addError($attribute, 'CAPTCHA verification is temporarily unavailable.');
 
             return;
+            // @codeCoverageIgnoreEnd
         }
 
         $response = $this->fetchTurnstileResponse($secretKey);

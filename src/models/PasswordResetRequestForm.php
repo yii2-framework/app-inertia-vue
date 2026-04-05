@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace app\models;
 
+use Throwable;
+use Yii;
 use yii\base\Model;
 use yii\mail\MailerInterface;
 
@@ -68,19 +70,57 @@ final class PasswordResetRequestForm extends Model
             return false;
         }
 
-        if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
-            $user->generatePasswordResetToken();
+        $transaction = null;
 
-            if (!$user->save()) {
+        if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try {
+                $user->generatePasswordResetToken();
+
+                if (!$user->save()) {
+                    $transaction->rollBack();
+
+                    return false;
+                }
+            } catch (Throwable $e) {
+                $transaction->rollBack();
+
+                Yii::error($e->getMessage(), __METHOD__);
+
                 return false;
             }
         }
 
-        return $mailer
-            ->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
-            ->setFrom([$supportEmail => "{$appName} robot"])
-            ->setTo($this->email)
-            ->setSubject("Password reset for {$appName}")
-            ->send();
+        try {
+            $sent = $mailer
+                ->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
+                ->setFrom([$supportEmail => "{$appName} robot"])
+                ->setTo($this->email)
+                ->setSubject("Password reset for {$appName}")
+                ->send();
+
+            if (!$sent) {
+                if ($transaction !== null && $transaction->isActive) {
+                    $transaction->rollBack();
+                }
+
+                return false;
+            }
+
+            if ($transaction !== null && $transaction->isActive) {
+                $transaction->commit();
+            }
+
+            return true;
+        } catch (Throwable $e) {
+            if ($transaction !== null && $transaction->isActive) {
+                $transaction->rollBack();
+            }
+
+            Yii::error($e->getMessage(), __METHOD__);
+
+            return false;
+        }
     }
 }

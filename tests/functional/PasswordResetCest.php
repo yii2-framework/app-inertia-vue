@@ -9,6 +9,8 @@ use app\tests\support\Fixtures\UserFixture;
 use app\tests\support\FunctionalTester;
 use PHPUnit\Framework\Assert;
 use Yii;
+use yii\base\{Event, ModelEvent};
+use yii\db\BaseActiveRecord;
 use yii\helpers\Url;
 use yii\mail\BaseMailer;
 use yii\mail\MailEvent;
@@ -86,6 +88,49 @@ final class PasswordResetCest
             ['PasswordResetRequestForm' => ['email' => 'nonexistent@example.com']],
         );
         $I->seeResponseCodeIs(302);
+    }
+
+    public function resetPasswordFailsWhenUserCannotBeSaved(FunctionalTester $I): void
+    {
+        $user = User::findByUsername('okirlin');
+
+        Assert::assertInstanceOf(
+            User::class,
+            $user,
+            "Failed asserting that fixture user 'okirlin' exists.",
+        );
+        Assert::assertNotNull(
+            $user->password_reset_token,
+            "Failed asserting that fixture user 'okirlin' has a 'password reset token'.",
+        );
+
+        $token = $user->password_reset_token;
+        $originalPasswordHash = $user->password_hash;
+
+        $handler = static function (ModelEvent $event): void {
+            $event->isValid = false;
+        };
+
+        Event::on(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+
+        try {
+            $I->amOnPage(Url::toRoute(['/user/reset-password', 'token' => $token]));
+            $I->sendAjaxPostRequest(
+                Url::toRoute(['/user/reset-password', 'token' => $token]),
+                ['ResetPasswordForm' => ['password' => 'newpassword123']],
+            );
+            $I->seeResponseCodeIs(302);
+        } finally {
+            Event::off(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+        }
+
+        $user->refresh();
+
+        Assert::assertSame($token, $user->password_reset_token, 'Password reset token should remain unchanged on save failure.');
+        Assert::assertSame($originalPasswordHash, $user->password_hash, 'Password hash should remain unchanged on save failure.');
+
+        $I->amOnPage(Url::toRoute(['/user/reset-password', 'token' => $token]));
+        $I->seeInSource('Sorry, we are unable to save your new password at this time.');
     }
 
     public function resetPasswordWithInvalidToken(FunctionalTester $I): void

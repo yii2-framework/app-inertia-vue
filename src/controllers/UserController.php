@@ -14,6 +14,7 @@ use app\models\{
     UserSearch,
     VerifyEmailForm,
 };
+use Throwable;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\{AccessControl, VerbFilter};
@@ -237,17 +238,31 @@ final class UserController extends Controller
         /** @phpstan-var array<string, mixed> $post */
         $post = $this->request->post();
 
-        if ($model->load($post) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash(
-                'success',
-                'New password saved.',
-            );
+        if ($model->load($post)) {
+            try {
+                $saved = $model->validate() && $model->resetPassword();
+            } catch (Throwable $e) {
+                Yii::error($e->getMessage(), __METHOD__);
+                $saved = false;
+            }
 
-            return $this->goHome();
-        }
+            if ($saved) {
+                Yii::$app->session->setFlash(
+                    'success',
+                    'New password saved.',
+                );
 
-        if ($this->request->isPost && $model->hasErrors()) {
-            Yii::$app->session->setFlash('errors', $model->getErrors());
+                return $this->goHome();
+            }
+
+            if ($model->hasErrors()) {
+                Yii::$app->session->setFlash('errors', $model->getErrors());
+            } else {
+                Yii::$app->session->setFlash(
+                    'error',
+                    'Sorry, we are unable to save your new password at this time.',
+                );
+            }
 
             return $this->redirect(['user/reset-password', 'token' => $token]);
         }
@@ -267,25 +282,32 @@ final class UserController extends Controller
         /** @phpstan-var array<string, mixed> $post */
         $post = $this->request->post();
 
-        $params = Yii::$app->params;
+        if ($model->load($post)) {
+            $params = Yii::$app->params;
 
-        $signed = $model->load($post) && $model->signup(
-            $this->mailer,
-            $params['supportEmail'],
-            Yii::$app->name,
-        ) === true;
-
-        if ($signed) {
-            Yii::$app->session->setFlash(
-                'success',
-                'Thank you for registration. Please check your inbox for verification email.',
+            $signed = $model->signup(
+                $this->mailer,
+                $params['supportEmail'],
+                Yii::$app->name,
             );
 
-            return $this->goHome();
-        }
+            if ($signed === true) {
+                Yii::$app->session->setFlash(
+                    'success',
+                    'Thank you for registration. Please check your inbox for verification email.',
+                );
 
-        if ($this->request->isPost && $model->hasErrors()) {
-            Yii::$app->session->setFlash('errors', $model->getErrors());
+                return $this->goHome();
+            }
+
+            if ($model->hasErrors()) {
+                Yii::$app->session->setFlash('errors', $model->getErrors());
+            } else {
+                Yii::$app->session->setFlash(
+                    'error',
+                    'Sorry, we are unable to complete your registration at this time.',
+                );
+            }
 
             return $this->redirect(['user/signup']);
         }

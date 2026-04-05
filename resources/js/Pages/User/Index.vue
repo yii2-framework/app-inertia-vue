@@ -220,48 +220,48 @@ const getStatus = (status) =>
                                     <FwbTableHeadCell
                                         :aria-sort="ariaSort('username')"
                                     >
-                                        <a
-                                            href="#"
-                                            class="hover:text-gray-900 dark:hover:text-white no-underline"
+                                        <button
+                                            type="button"
+                                            class="cursor-pointer bg-transparent border-0 p-0 hover:text-gray-900 dark:hover:text-white"
                                             @click.prevent="sortBy('username')"
-                                            >Username{{
-                                                sortIcon("username")
-                                            }}</a
                                         >
+                                            Username{{ sortIcon("username") }}
+                                        </button>
                                     </FwbTableHeadCell>
                                     <FwbTableHeadCell
                                         :aria-sort="ariaSort('email')"
                                     >
-                                        <a
-                                            href="#"
-                                            class="hover:text-gray-900 dark:hover:text-white no-underline"
+                                        <button
+                                            type="button"
+                                            class="cursor-pointer bg-transparent border-0 p-0 hover:text-gray-900 dark:hover:text-white"
                                             @click.prevent="sortBy('email')"
-                                            >Email{{ sortIcon("email") }}</a
                                         >
+                                            Email{{ sortIcon("email") }}
+                                        </button>
                                     </FwbTableHeadCell>
                                     <FwbTableHeadCell
                                         :aria-sort="ariaSort('status')"
                                     >
-                                        <a
-                                            href="#"
-                                            class="hover:text-gray-900 dark:hover:text-white no-underline"
+                                        <button
+                                            type="button"
+                                            class="cursor-pointer bg-transparent border-0 p-0 hover:text-gray-900 dark:hover:text-white"
                                             @click.prevent="sortBy('status')"
-                                            >Status{{ sortIcon("status") }}</a
                                         >
+                                            Status{{ sortIcon("status") }}
+                                        </button>
                                     </FwbTableHeadCell>
                                     <FwbTableHeadCell
                                         :aria-sort="ariaSort('created_at')"
                                     >
-                                        <a
-                                            href="#"
-                                            class="hover:text-gray-900 dark:hover:text-white no-underline"
+                                        <button
+                                            type="button"
+                                            class="cursor-pointer bg-transparent border-0 p-0 hover:text-gray-900 dark:hover:text-white"
                                             @click.prevent="
                                                 sortBy('created_at')
                                             "
-                                            >Joined{{
-                                                sortIcon("created_at")
-                                            }}</a
                                         >
+                                            Joined{{ sortIcon("created_at") }}
+                                        </button>
                                     </FwbTableHeadCell>
                                 </FwbTableHead>
 
