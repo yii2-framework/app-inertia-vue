@@ -40,7 +40,7 @@
 
 | Layer            | Technology                                 |
 | ---------------- | ------------------------------------------ |
-| Backend          | PHP 8.1+, Yii2, Inertia.js server adapter  |
+| Backend          | PHP 8.2+, Yii2, Inertia.js server adapter  |
 | Frontend         | Vue 3, Inertia.js client, Vite             |
 | CSS              | Tailwind CSS v4, Flowbite, Flowbite Vue    |
 | CAPTCHA          | Cloudflare Turnstile                       |
@@ -85,11 +85,11 @@ Open `http://localhost:8080`. Default admin credentials: `admin` / `admin`.
 
 ## Documentation
 
-- [Installation Guide](docs/installation.md)
-- [Configuration Reference](docs/configuration.md)
-- [Usage Examples](docs/examples.md)
-- [Testing Guide](docs/testing.md)
-- [Development Guide](docs/development.md)
+- 📚 [Installation Guide](docs/installation.md)
+- ⚙️ [Configuration Reference](docs/configuration.md)
+- 💡 [Usage Examples](docs/examples.md)
+- 🧪 [Testing Guide](docs/testing.md)
+
 
 ## Testing
 
@@ -107,7 +107,7 @@ composer static
 
 ## Package information
 
-[![PHP](https://img.shields.io/badge/%3E%3D8.1-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/releases/8.1/en.php)
+[![PHP](https://img.shields.io/badge/%3E%3D8.2-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/releases/8.2/en.php)
 [![Latest Stable Version](https://img.shields.io/packagist/v/yii2-framework/app-inertia-vue.svg?style=for-the-badge&logo=packagist&logoColor=white&label=Stable)](https://packagist.org/packages/yii2-framework/app-inertia-vue)
 
 ## Quality code
