@@ -217,7 +217,9 @@ const getStatus = (status) =>
                         <div class="overflow-x-auto">
                             <FwbTable hoverable>
                                 <FwbTableHead>
-                                    <FwbTableHeadCell :aria-sort="ariaSort('username')">
+                                    <FwbTableHeadCell
+                                        :aria-sort="ariaSort('username')"
+                                    >
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"
@@ -227,7 +229,9 @@ const getStatus = (status) =>
                                             }}</a
                                         >
                                     </FwbTableHeadCell>
-                                    <FwbTableHeadCell :aria-sort="ariaSort('email')">
+                                    <FwbTableHeadCell
+                                        :aria-sort="ariaSort('email')"
+                                    >
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"
@@ -235,7 +239,9 @@ const getStatus = (status) =>
                                             >Email{{ sortIcon("email") }}</a
                                         >
                                     </FwbTableHeadCell>
-                                    <FwbTableHeadCell :aria-sort="ariaSort('status')">
+                                    <FwbTableHeadCell
+                                        :aria-sort="ariaSort('status')"
+                                    >
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"
@@ -243,7 +249,9 @@ const getStatus = (status) =>
                                             >Status{{ sortIcon("status") }}</a
                                         >
                                     </FwbTableHeadCell>
-                                    <FwbTableHeadCell :aria-sort="ariaSort('created_at')">
+                                    <FwbTableHeadCell
+                                        :aria-sort="ariaSort('created_at')"
+                                    >
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"

@@ -29,16 +29,19 @@ jobs:
         run: docker compose up -d --build
 
       - name: Fix permissions.
-        run: docker compose exec -T php bash -c "chown -R www-data:www-data /app/runtime /app/web/assets && chmod -R ug+rwX /app/runtime /app/web/assets"
+        run: docker compose exec -T php bash -c "chown -R www-data:www-data /app/runtime /app/public/assets && chmod -R ug+rwX /app/runtime /app/public/assets"
 
       - name: Install Node.js and npm.
         run: docker compose exec -T php bash -c "apt-get update && apt-get install -y nodejs npm"
 
       - name: Composer install.
-        run: docker compose exec -T php composer install --prefer-dist --no-progress --optimize-autoloader
+        run: docker compose exec -T php bash -c "git config --global --add safe.directory /app && composer install --prefer-dist --no-progress --optimize-autoloader"
 
       - name: Build frontend assets.
         run: docker compose exec -T php npm run build
+
+      - name: Configure test entry point.
+        run: docker compose exec -T php bash -c "sed -i 's/index.php/index-test.php/' /app/public/.htaccess"
 
       - name: Codeception build.
         run: docker compose exec -T php vendor/bin/codecept build
