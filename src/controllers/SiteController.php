@@ -55,12 +55,19 @@ final class SiteController extends Controller
         if ($model->load($post)) {
             $params = Yii::$app->params;
 
-            if ($model->contact(
-                $this->mailer,
-                $params['adminEmail'],
-                $params['senderEmail'],
-                $params['senderName'],
-            )) {
+            try {
+                $sent = $model->contact(
+                    $this->mailer,
+                    $params['adminEmail'],
+                    $params['senderEmail'],
+                    $params['senderName'],
+                );
+            } catch (Throwable $e) {
+                Yii::error($e->getMessage(), __METHOD__);
+                $sent = false;
+            }
+
+            if ($sent) {
                 Yii::$app->session->setFlash(
                     'success',
                     'Thank you for contacting us. We will respond to you as soon as possible.',

@@ -51,6 +51,121 @@ final class PasswordResetRequestFormTest extends \Codeception\Test\Unit
             );
     }
 
+    public function testReturnsFalseWhenMailerSendThrows(): void
+    {
+        $user = User::findByUsername('okirlin');
+
+        self::assertInstanceOf(
+            User::class,
+            $user,
+            "Failed asserting that fixture user 'okirlin' exists.",
+        );
+
+        // okirlin has a valid (non-expired) token — token-regeneration block is skipped ($transaction=null).
+        $handler = static function (): void {
+            throw new \RuntimeException('Simulated mailer transport failure.');
+        };
+
+        Yii::$app->mailer->on(BaseMailer::EVENT_BEFORE_SEND, $handler);
+
+        $model = new PasswordResetRequestForm();
+
+        $model->email = $user->email;
+
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        try {
+            verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->false(
+                    "Failed asserting that sendEmail returns 'false' when mailer throws with no active transaction.",
+                );
+        } finally {
+            Yii::$app->mailer->off(BaseMailer::EVENT_BEFORE_SEND, $handler);
+        }
+    }
+
+    public function testReturnsFalseWhenMailerSendThrowsWithActiveTransaction(): void
+    {
+        $user = User::findByUsername('okirlin');
+
+        self::assertInstanceOf(
+            User::class,
+            $user,
+            "Failed asserting that fixture user 'okirlin' exists.",
+        );
+
+        // Set expired token so the token-regeneration block is entered and a transaction is started.
+        // Save succeeds (no EVENT_BEFORE_UPDATE blocker), so $transaction is non-null and active
+        // when the mailer throws — covering rollBack() inside the second catch block.
+        $user->password_reset_token = 'expiredtoken_1000000000';
+
+        self::assertTrue(
+            $user->save(false),
+            'Failed asserting that the expired token was persisted.',
+        );
+
+        $handler = static function (): void {
+            throw new \RuntimeException('Simulated mailer failure with active transaction.');
+        };
+
+        Yii::$app->mailer->on(BaseMailer::EVENT_BEFORE_SEND, $handler);
+
+        $model = new PasswordResetRequestForm();
+
+        $model->email = $user->email;
+
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        try {
+            verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->false(
+                    "Failed asserting that sendEmail returns 'false' when mailer throws with an active transaction.",
+                );
+        } finally {
+            Yii::$app->mailer->off(BaseMailer::EVENT_BEFORE_SEND, $handler);
+        }
+    }
+
+    public function testReturnsFalseWhenUserSaveThrowsDuringTokenRegeneration(): void
+    {
+        $user = User::findByUsername('okirlin');
+
+        self::assertInstanceOf(
+            User::class,
+            $user,
+            "Failed asserting that fixture user 'okirlin' exists.",
+        );
+
+        // Set expired token so the token-regeneration block (`$user->save()`) is entered.
+        $user->password_reset_token = 'expiredtoken_1000000000';
+
+        self::assertTrue(
+            $user->save(false),
+            'Failed asserting that the expired token was persisted.',
+        );
+
+        $handler = static function (): void {
+            throw new \RuntimeException('Simulated DB failure during token regeneration.');
+        };
+
+        Event::on(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+
+        $model = new PasswordResetRequestForm();
+
+        $model->email = $user->email;
+
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        try {
+            verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->false(
+                    "Failed asserting that sendEmail returns 'false' when user save throws during token regeneration.",
+                );
+        } finally {
+            Event::off(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+        }
+    }
+
     public function testSendEmailRegeneratesExpiredToken(): void
     {
         $user = User::findByUsername('okirlin');

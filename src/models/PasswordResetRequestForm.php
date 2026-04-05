@@ -86,7 +86,9 @@ final class PasswordResetRequestForm extends Model
             } catch (Throwable $e) {
                 $transaction->rollBack();
 
-                throw $e;
+                Yii::error($e->getMessage(), __METHOD__);
+
+                return false;
             }
         }
 
@@ -116,7 +118,9 @@ final class PasswordResetRequestForm extends Model
                 $transaction->rollBack();
             }
 
-            throw $e;
+            Yii::error($e->getMessage(), __METHOD__);
+
+            return false;
         }
     }
 }

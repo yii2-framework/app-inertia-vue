@@ -424,6 +424,46 @@ final class UserControllerTest extends \Codeception\Test\Unit
         );
     }
 
+    public function testActionResetPasswordPostThrowsDuringSave(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/user/reset-password';
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        $user = User::findByUsername('okirlin');
+
+        self::assertInstanceOf(User::class, $user, "Fixture user 'okirlin' must exist.");
+
+        $token = $user->password_reset_token;
+
+        self::assertNotNull($token, "Fixture user 'okirlin' must have a password reset token.");
+
+        Yii::$app->request->setBodyParams([
+            'ResetPasswordForm' => ['password' => 'newpassword123'],
+        ]);
+
+        $handler = static function (): void {
+            throw new \RuntimeException('Simulated DB failure during password save.');
+        };
+
+        Event::on(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+
+        try {
+            $controller = new UserController('user', Yii::$app, Yii::$app->mailer);
+
+            Yii::$app->controller = $controller;
+            $response = $controller->actionResetPassword($token);
+        } finally {
+            Event::off(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+        }
+
+        self::assertInstanceOf(
+            Response::class,
+            $response,
+            "Expected 'actionResetPassword' to return Response when save throws instead of propagating exception.",
+        );
+    }
+
     public function testActionResetPasswordPostValidationErrors(): void
     {
         $_SERVER['REQUEST_URI'] = '/user/reset-password';
@@ -582,13 +622,13 @@ final class UserControllerTest extends \Codeception\Test\Unit
         $_SERVER['SERVER_NAME'] = 'localhost';
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
-        $user = User::findOne(['username' => 'test.test', 'status' => User::STATUS_INACTIVE]);
+        $user = User::findOne(['username' => 'test.fail', 'status' => User::STATUS_INACTIVE]);
 
-        self::assertInstanceOf(User::class, $user, "Fixture user 'test.test' must exist.");
+        self::assertInstanceOf(User::class, $user, "Fixture user 'test.fail' must exist.");
 
         $token = $user->verification_token;
 
-        self::assertNotNull($token, "Fixture user 'test.test' must have a verification token.");
+        self::assertNotNull($token, "Fixture user 'test.fail' must have a verification token.");
 
         $handler = static function (ModelEvent $event): void {
             $event->isValid = false;

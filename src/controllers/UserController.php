@@ -14,6 +14,7 @@ use app\models\{
     UserSearch,
     VerifyEmailForm,
 };
+use Throwable;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\{AccessControl, VerbFilter};
@@ -238,7 +239,14 @@ final class UserController extends Controller
         $post = $this->request->post();
 
         if ($model->load($post)) {
-            if ($model->validate() && $model->resetPassword()) {
+            try {
+                $saved = $model->validate() && $model->resetPassword();
+            } catch (Throwable $e) {
+                Yii::error($e->getMessage(), __METHOD__);
+                $saved = false;
+            }
+
+            if ($saved) {
                 Yii::$app->session->setFlash(
                     'success',
                     'New password saved.',

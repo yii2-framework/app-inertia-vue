@@ -107,6 +107,45 @@ final class SiteControllerTest extends \Codeception\Test\Unit
         );
     }
 
+    public function testActionContactPostMailerThrows(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/site/contact';
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        Yii::$app->request->setBodyParams([
+            'ContactForm' => [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'phone' => '(555) 123-4567',
+                'subject' => 'Test Subject',
+                'body' => 'Test body content.',
+                'turnstileToken' => 'test-token',
+            ],
+        ]);
+
+        $handler = static function (): void {
+            throw new \RuntimeException('Simulated mailer transport exception.');
+        };
+
+        Yii::$app->mailer->on(BaseMailer::EVENT_BEFORE_SEND, $handler);
+
+        try {
+            $controller = new SiteController('site', Yii::$app, Yii::$app->mailer);
+
+            Yii::$app->controller = $controller;
+            $response = $controller->actionContact();
+        } finally {
+            Yii::$app->mailer->off(BaseMailer::EVENT_BEFORE_SEND, $handler);
+        }
+
+        self::assertInstanceOf(
+            Response::class,
+            $response,
+            "Expected 'actionContact' to return Response when mailer throws instead of propagating exception.",
+        );
+    }
+
     public function testActionContactPostSuccess(): void
     {
         $_SERVER['REQUEST_URI'] = '/site/contact';
