@@ -6,4 +6,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ## 0.1.0 Under development
 
-- feat: basic application template for `yii2-framework/yii2` and `yii2-framework/inertia-vue` packages with Codeception, Docker, and Bootstrap5.
+- feat: basic application template for Yii2 and Inertia Vue packages with Codeception, Docker, Tailwind CSS v4, Flowbite, and Cloudflare Turnstile.

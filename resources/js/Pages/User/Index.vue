@@ -51,6 +51,21 @@ const filterEmail = ref(props.filters.email || "");
 const filterStatus = ref(props.filters.status ?? "");
 let debounceTimer = null;
 
+const getSortParam = (attributes = {}) => {
+    const [entry] = Object.entries(attributes);
+    return entry ? (entry[1] === 3 ? `-${entry[0]}` : entry[0]) : "";
+};
+
+const sortParam = ref(getSortParam(props.sort.attributes));
+
+watch(
+    () => props.sort.attributes,
+    (attributes) => {
+        sortParam.value = getSortParam(attributes);
+    },
+    { deep: true },
+);
+
 const buildParams = () => {
     const params = {};
     if (filterUsername.value)
@@ -59,11 +74,7 @@ const buildParams = () => {
     if (filterStatus.value !== "")
         params["UserSearch[status]"] = filterStatus.value;
 
-    const currentSort = Object.entries(props.sort.attributes)[0];
-    if (currentSort) {
-        params.sort =
-            currentSort[1] === 3 ? `-${currentSort[0]}` : currentSort[0];
-    }
+    if (sortParam.value) params.sort = sortParam.value;
 
     return params;
 };
@@ -89,9 +100,9 @@ onUnmounted(cancelPendingFilter);
 
 const sortBy = (attribute) => {
     cancelPendingFilter();
-    const currentOrder = props.sort.attributes[attribute];
     const params = buildParams();
-    params.sort = currentOrder === 4 ? `-${attribute}` : attribute;
+    params.sort = sortParam.value === attribute ? `-${attribute}` : attribute;
+    sortParam.value = params.sort;
     router.get("/user/index", params, {
         preserveState: true,
         preserveScroll: true,
@@ -120,6 +131,13 @@ const sortIcon = (attribute) => {
     if (order === 4) return " \u25B2";
     if (order === 3) return " \u25BC";
     return "";
+};
+
+const ariaSort = (attribute) => {
+    const order = props.sort.attributes[attribute];
+    if (order === 4) return "ascending";
+    if (order === 3) return "descending";
+    return "none";
 };
 
 const formatDate = (timestamp) => {
@@ -199,7 +217,7 @@ const getStatus = (status) =>
                         <div class="overflow-x-auto">
                             <FwbTable hoverable>
                                 <FwbTableHead>
-                                    <FwbTableHeadCell>
+                                    <FwbTableHeadCell :aria-sort="ariaSort('username')">
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"
@@ -209,7 +227,7 @@ const getStatus = (status) =>
                                             }}</a
                                         >
                                     </FwbTableHeadCell>
-                                    <FwbTableHeadCell>
+                                    <FwbTableHeadCell :aria-sort="ariaSort('email')">
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"
@@ -217,7 +235,7 @@ const getStatus = (status) =>
                                             >Email{{ sortIcon("email") }}</a
                                         >
                                     </FwbTableHeadCell>
-                                    <FwbTableHeadCell>
+                                    <FwbTableHeadCell :aria-sort="ariaSort('status')">
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"
@@ -225,7 +243,7 @@ const getStatus = (status) =>
                                             >Status{{ sortIcon("status") }}</a
                                         >
                                     </FwbTableHeadCell>
-                                    <FwbTableHeadCell>
+                                    <FwbTableHeadCell :aria-sort="ariaSort('created_at')">
                                         <a
                                             href="#"
                                             class="hover:text-gray-900 dark:hover:text-white no-underline"

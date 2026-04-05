@@ -68,10 +68,6 @@ final class CreateAdminUserTest extends \Codeception\Test\Unit
             'Failed asserting that admin user exists.',
         );
 
-        verify($admin)
-            ->notNull(
-                "Failed asserting that admin user exists after 'safeUp'.",
-            );
         verify($admin->username)->equals($expectedUsername);
         verify($admin->email)->equals($expectedEmail);
         verify($admin->status)

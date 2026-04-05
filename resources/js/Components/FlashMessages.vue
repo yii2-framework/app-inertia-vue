@@ -30,7 +30,7 @@ watch(
                 message,
             }));
     },
-    { immediate: true, deep: true },
+    { immediate: true },
 );
 
 const dismiss = (id) => {
