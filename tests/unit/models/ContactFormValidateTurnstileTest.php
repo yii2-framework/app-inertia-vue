@@ -26,6 +26,7 @@ final class ContactFormValidateTurnstileTest extends \Codeception\Test\Unit
             'Turnstile validation should be skipped when model already has errors.',
         );
     }
+
     public function testValidateTurnstileSkipsWhenSecretKeyIsEmptyInTestEnv(): void
     {
         $model = new ContactForm();
