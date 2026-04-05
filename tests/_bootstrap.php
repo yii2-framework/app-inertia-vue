@@ -14,6 +14,7 @@ $app = new yii\console\Application(
         'basePath' => dirname(__DIR__),
         'aliases' => ['@app/migrations' => dirname(__DIR__) . '/src/migrations'],
         'components' => ['db' => require dirname(__DIR__) . '/config/test_db.php'],
+        'params' => require dirname(__DIR__) . '/config/params.php',
         'controllerMap' => [
             'migrate' => [
                 'class' => yii\console\controllers\MigrateController::class,
