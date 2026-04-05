@@ -176,7 +176,6 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string|null $token Token to be validated.
      *
      * @return bool `true` if the token is valid, `false` otherwise.
-
      */
     public static function isPasswordResetTokenValid(string|null $token): bool
     {
