@@ -582,7 +582,7 @@ final class UserControllerTest extends \Codeception\Test\Unit
         $_SERVER['SERVER_NAME'] = 'localhost';
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
-        $user = User::findByUsername('test.test');
+        $user = User::findOne(['username' => 'test.test', 'status' => User::STATUS_INACTIVE]);
 
         self::assertInstanceOf(User::class, $user, "Fixture user 'test.test' must exist.");
 
@@ -618,7 +618,7 @@ final class UserControllerTest extends \Codeception\Test\Unit
         $_SERVER['SERVER_NAME'] = 'localhost';
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
-        $user = User::findByUsername('test.test');
+        $user = User::findOne(['username' => 'test.test', 'status' => User::STATUS_INACTIVE]);
 
         self::assertInstanceOf(User::class, $user, "Fixture user 'test.test' must exist.");
 
