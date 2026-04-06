@@ -6,7 +6,7 @@
         "build": "vite build"
     },
     "dependencies": {
-        "@inertiajs/vue3": "^2.0",
+        "@inertiajs/vue3": "^3.0",
         "flowbite": "^3.1",
         "flowbite-vue": "^0.2",
         "vue": "^3.5",

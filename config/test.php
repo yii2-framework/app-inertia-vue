@@ -57,10 +57,6 @@ return [
                         'canViewUsers' => !$user->isGuest && $user->can('viewUsers'),
                     ];
                 },
-                'csrf' => static fn(): array => [
-                    'param' => Yii::$app->request->csrfParam,
-                    'token' => Yii::$app->request->getCsrfToken(),
-                ],
                 'appName' => static fn(): string => Yii::$app->name,
                 'turnstileSiteKey' => static function (): string {
                     return Yii::$app->params['turnstile.siteKey'];
@@ -82,6 +78,7 @@ return [
             'viewPath' => '@app/resources/mail',
         ],
         'request' => [
+            'class' => \yii\inertia\web\Request::class,
             'cookieValidationKey' => 'test',
             'enableCsrfValidation' => false,
             'parsers' => [

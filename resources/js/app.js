@@ -1,5 +1,5 @@
 import { createApp, h } from "vue";
-import { createInertiaApp, router } from "@inertiajs/vue3";
+import { createInertiaApp } from "@inertiajs/vue3";
 import Layout from "./Components/Layout.vue";
 import "../css/app.css";
 
@@ -12,16 +12,18 @@ if (!appEl || !payloadEl?.textContent) {
 
 const pageData = JSON.parse(payloadEl.textContent);
 
-// CSRF: the server uses validateCsrfHeaderOnly=true — it only checks that the
-// header is present, not its value.  CORS prevents cross-origin JS from setting
-// custom headers, so presence alone proves same-origin.
-router.on("before", (event) => {
-  event.detail.visit.headers["X-CSRF-Token"] = "same-origin";
-});
-
 createInertiaApp({
   id: "app",
   page: pageData,
+  progress: {
+    delay: 250,
+    color: "#1a56db",
+    includeCSS: true,
+    showSpinner: true,
+  },
+  defaults: {
+    viewTransition: true,
+  },
   resolve: (name) => {
     const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
     const page = pages[`./Pages/${name}.vue`];
