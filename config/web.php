@@ -60,10 +60,6 @@ $config = [
                         'canViewUsers' => !$user->isGuest && $user->can('viewUsers'),
                     ];
                 },
-                'csrf' => static fn(): array => [
-                    'param' => Yii::$app->request->csrfParam,
-                    'token' => Yii::$app->request->getCsrfToken(),
-                ],
                 'appName' => static fn(): string => Yii::$app->name,
                 'turnstileSiteKey' => static function (): string {
                     return Yii::$app->params['turnstile.siteKey'];
@@ -92,10 +88,9 @@ $config = [
         ],
         'mailer' => MailerInterface::class,
         'request' => [
+            'class' => \yii\inertia\web\Request::class,
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '',
-            'validateCsrfHeaderOnly' => true,
-            'csrfHeaderUnsafeMethods' => ['POST', 'PUT', 'PATCH', 'DELETE'],
             'parsers' => [
                 'application/json' => \yii\web\JsonParser::class,
             ],

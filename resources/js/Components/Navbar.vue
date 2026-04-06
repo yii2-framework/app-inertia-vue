@@ -35,6 +35,7 @@ const isActive = (href) => {
                     <div class="hidden md:flex items-center gap-1">
                         <Link
                             href="/"
+                            prefetch
                             :class="[
                                 'px-3 py-2 text-sm rounded-md transition-colors',
                                 isActive('/')
@@ -46,6 +47,7 @@ const isActive = (href) => {
                         </Link>
                         <Link
                             href="/site/about"
+                            prefetch
                             :class="[
                                 'px-3 py-2 text-sm rounded-md transition-colors',
                                 isActive('/site/about')
@@ -57,6 +59,7 @@ const isActive = (href) => {
                         </Link>
                         <Link
                             href="/site/contact"
+                            prefetch
                             :class="[
                                 'px-3 py-2 text-sm rounded-md transition-colors',
                                 isActive('/site/contact')
@@ -69,6 +72,7 @@ const isActive = (href) => {
                         <Link
                             v-if="page.props.auth.canViewUsers"
                             href="/user/index"
+                            prefetch
                             :class="[
                                 'px-3 py-2 text-sm rounded-md transition-colors',
                                 isActive('/user/index')
@@ -81,6 +85,7 @@ const isActive = (href) => {
                         <Link
                             v-if="page.props.auth.isGuest"
                             href="/user/signup"
+                            prefetch
                             :class="[
                                 'px-3 py-2 text-sm rounded-md transition-colors',
                                 isActive('/user/signup')
@@ -93,6 +98,7 @@ const isActive = (href) => {
                         <Link
                             v-if="page.props.auth.isGuest"
                             href="/user/login"
+                            prefetch
                             :class="[
                                 'px-3 py-2 text-sm rounded-md transition-colors',
                                 isActive('/user/login')
