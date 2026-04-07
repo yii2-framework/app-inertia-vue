@@ -1,9 +1,12 @@
 <?php
 
-/** @var \yii\web\View $this view component instance */
-/** @var \yii\mail\MessageInterface $message the message being composed */
-/** @var string $content main view render result */
+declare(strict_types=1);
 
+/**
+ * @var string $content Main view render result.
+ * @var \yii\mail\MessageInterface $message Message being composed.
+ * @var \yii\web\View $this View component instance.
+ */
 ?>
 <?php $this->beginPage() ?>
 <?php $this->beginBody() ?>

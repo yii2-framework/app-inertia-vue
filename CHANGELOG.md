@@ -10,3 +10,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - fix: roll back regenerated password reset token when email delivery fails, add generic error flash on mailer/save failures in controllers, and replace sort anchor tags with button elements for accessibility.
 - feat: migrate to Inertia `v3` with progress indicator, view transitions, link prefetching, and remove unused `csrf` shared prop.
 - fix: send verification email outside the DB transaction in `SignupForm::signup()` to avoid holding locks during mailer I/O; the user row is preserved if the mailer fails after commit.
+- chore: bump `inertia` and `inertia-vue` and switch `config/web.php` to register the canonical `\yii\inertia\Vite` component via the Vue `Bootstrap`.

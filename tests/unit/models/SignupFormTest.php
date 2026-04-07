@@ -214,6 +214,39 @@ final class SignupFormTest extends \Codeception\Test\Unit
             );
     }
 
+    public function testSignupRollsBackTransactionWhenUserSaveThrows(): void
+    {
+        $handler = static function (): void {
+            throw new RuntimeException('Database failure during user save');
+        };
+
+        Event::on(User::class, BaseActiveRecord::EVENT_BEFORE_INSERT, $handler);
+
+        $model = new SignupForm(
+            [
+                'username' => 'rollback_user',
+                'email' => 'rollback@example.com',
+                'password' => 'some_password',
+            ],
+        );
+
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        try {
+            verify($model->signup(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->false(
+                    "Failed asserting that signup returns 'false' when the user save throws inside the transaction.",
+                );
+        } finally {
+            Event::off(User::class, BaseActiveRecord::EVENT_BEFORE_INSERT, $handler);
+        }
+
+        verify(User::findOne(['username' => 'rollback_user']))
+            ->null(
+                'Failed asserting that the user row was rolled back when an exception was thrown before the transaction commit.',
+            );
+    }
+
     public function testThrowRuntimeExceptionWhenMailerFailsDuringSignup(): void
     {
         $handler = static function (): void {
