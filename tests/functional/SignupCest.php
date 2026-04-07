@@ -40,11 +40,12 @@ final class SignupCest
             );
 
             $I->seeResponseCodeIs(302);
-            $I->dontSeeRecord(
+            $I->seeRecord(
                 User::class,
                 [
                     'username' => 'signup_fail_user',
                     'email' => 'signup.fail@example.com',
+                    'status' => User::STATUS_INACTIVE,
                 ],
             );
             $I->dontSeeEmailIsSent();

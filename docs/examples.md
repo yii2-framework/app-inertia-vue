@@ -67,7 +67,7 @@ const submit = () => {
 
 ## Accessing shared props
 
-Shared props are defined in `config/web.php` under the `inertiaVue` component. Access them in any Vue component:
+Shared props are defined in `config/web.php` under the `inertia` component. Access them in any Vue component:
 
 ```vue
 <script setup>
