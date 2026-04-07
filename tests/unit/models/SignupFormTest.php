@@ -209,8 +209,8 @@ final class SignupFormTest extends \Codeception\Test\Unit
         }
 
         verify(User::findOne(['username' => 'email_fail_user']))
-            ->null(
-                'Failed asserting that user was rolled back after email failure.',
+            ->notNull(
+                'Failed asserting that user was persisted even after email failure (email is sent outside the DB transaction).',
             );
     }
 
@@ -242,8 +242,8 @@ final class SignupFormTest extends \Codeception\Test\Unit
         }
 
         verify(User::findOne(['username' => 'exception_user']))
-            ->null(
-                'Failed asserting that user was rolled back after mailer exception.',
+            ->notNull(
+                'Failed asserting that user was persisted even after mailer exception (email is sent outside the DB transaction).',
             );
     }
 }

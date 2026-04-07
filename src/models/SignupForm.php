@@ -121,15 +121,10 @@ final class SignupForm extends Model
                 return false;
             }
 
-            if (!$this->sendEmail($mailer, $user, $supportEmail, $appName)) {
-                $transaction->rollBack();
-
-                return false;
-            }
-
             $transaction->commit();
+            $transaction = null;
 
-            return true;
+            return $this->sendEmail($mailer, $user, $supportEmail, $appName);
         } catch (Throwable $e) {
             if ($transaction !== null && $transaction->isActive) {
                 $transaction->rollBack();
