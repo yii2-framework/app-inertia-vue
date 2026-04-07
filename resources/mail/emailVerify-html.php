@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 use yii\helpers\Html;
 
-/** @var \app\models\User $user */
-/** @var \yii\web\View $this */
-
+/**
+ * @var \app\models\User $user User instance.
+ * @var \yii\web\View $this View component instance.
+ */
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['user/verify-email', 'token' => $user->verification_token]);
 ?>
 <div class="verify-email">

@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 use yii\caching\FileCache;
-use yii\console\controllers\MigrateController;
-use yii\console\controllers\ServeController;
+use yii\console\controllers\{MigrateController, ServeController};
 use yii\log\FileTarget;
 use yii\rbac\PhpManager;
 

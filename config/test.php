@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 use app\models\User;
 use app\tests\support\MailerBootstrap;
-use yii\inertia\Manager;
+use yii\inertia\{Manager, Vite};
 use yii\inertia\vue\Bootstrap;
-use yii\inertia\vue\Vite;
 use yii\rbac\PhpManager;
-use yii\symfonymailer\Mailer;
-use yii\symfonymailer\Message;
+use yii\symfonymailer\{Mailer, Message};
 use yii\web\JsonParser;
 
 /** @phpstan-var array<string, mixed> $params */

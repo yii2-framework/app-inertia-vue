@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 use app\models\User;
 use yii\caching\FileCache;
-use yii\inertia\Manager;
+use yii\inertia\{Manager, Vite};
 use yii\inertia\vue\Bootstrap;
-use yii\inertia\vue\Vite;
 use yii\log\FileTarget;
 use yii\mail\MailerInterface;
 use yii\rbac\PhpManager;
