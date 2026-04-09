@@ -50,15 +50,40 @@ const fieldError = (field) => {
   <Head title="Contact us" />
 
   <!-- Success state -->
-  <div v-if="page.props.flash?.success" class="grow flex items-center justify-center text-center">
-    <div class="mx-auto max-w-sm sm:max-w-md">
-      <h1 class="font-display text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Message sent</h1>
-      <Link
-        href="/site/contact"
-        class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-      >
-        Send another message
-      </Link>
+  <div v-if="page.props.flash?.success" class="grow flex items-center justify-center py-4">
+    <div
+      class="overflow-hidden rounded-2xl shadow-lg dark:shadow-gray-900/50 bg-gray-50 dark:bg-gray-800 w-full max-w-[960px]"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Brand panel -->
+        <div class="hidden md:flex md:w-1/3 login-brand-panel text-white">
+          <div class="flex flex-col justify-between p-6 lg:p-8 w-full">
+            <div>
+              <img src="/images/yii3_full_white_for_dark.svg" alt="Yii Framework" class="mb-6" height="40" />
+            </div>
+            <div>
+              <h2 class="font-display font-bold mb-3 text-[1.75rem] leading-tight">Message<br />Received.</h2>
+              <p class="opacity-75 text-[0.9rem]">Thanks for reaching out. We will reply as soon as we can.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content panel -->
+        <div class="w-full md:w-2/3 flex items-center justify-center">
+          <div class="p-6 lg:p-8 text-center w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Thanks, we got it.</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+              Your message has been delivered to the team. Want to send another note?
+            </p>
+            <Link
+              href="/site/contact"
+              class="inline-block w-full login-btn text-white font-medium px-6 py-3 rounded-lg transition-colors"
+            >
+              Send another message
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
