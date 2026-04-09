@@ -20,7 +20,7 @@ Create `resources/js/Pages/Dashboard.vue`:
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
-    stats: { type: Object, default: () => ({}) },
+  stats: { type: Object, default: () => ({}) },
 });
 </script>
 
@@ -45,8 +45,8 @@ Inertia handles form state and server-side validation errors:
 import { useForm } from "@inertiajs/vue3";
 
 const form = useForm({
-    "MyModel[name]": "",
-    "MyModel[email]": "",
+  "MyModel[name]": "",
+  "MyModel[email]": "",
 });
 
 const submit = () => {
