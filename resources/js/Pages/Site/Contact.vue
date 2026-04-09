@@ -50,7 +50,12 @@ const fieldError = (field) => {
   <Head title="Contact us" />
 
   <!-- Success state -->
-  <div v-if="page.props.flash?.success" class="grow flex items-center justify-center py-4">
+  <div
+    v-if="page.props.flash?.success"
+    class="grow flex items-center justify-center py-4"
+    role="status"
+    aria-live="polite"
+  >
     <div
       class="overflow-hidden rounded-2xl shadow-lg dark:shadow-gray-900/50 bg-gray-50 dark:bg-gray-800 w-full max-w-[960px]"
     >
@@ -139,12 +144,14 @@ const fieldError = (field) => {
                       id="contact-name"
                       v-model="form['ContactForm[name]']"
                       type="text"
+                      :aria-invalid="Boolean(fieldError('name'))"
+                      :aria-describedby="fieldError('name') ? 'contact-name-error' : undefined"
                       class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                       placeholder="Name"
                       autofocus
                     />
                   </div>
-                  <p v-if="fieldError('name')" class="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p v-if="fieldError('name')" id="contact-name-error" class="text-red-600 dark:text-red-400 text-sm mt-1">
                     {{ fieldError("name") }}
                   </p>
                 </div>
@@ -168,11 +175,13 @@ const fieldError = (field) => {
                       id="contact-email"
                       v-model="form['ContactForm[email]']"
                       type="email"
+                      :aria-invalid="Boolean(fieldError('email'))"
+                      :aria-describedby="fieldError('email') ? 'contact-email-error' : undefined"
                       class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                       placeholder="email@example.com"
                     />
                   </div>
-                  <p v-if="fieldError('email')" class="text-red-600 dark:text-red-400 text-sm mt-1">
+                  <p v-if="fieldError('email')" id="contact-email-error" class="text-red-600 dark:text-red-400 text-sm mt-1">
                     {{ fieldError("email") }}
                   </p>
                 </div>
@@ -196,13 +205,15 @@ const fieldError = (field) => {
                   <input
                     id="contact-phone"
                     :value="form['ContactForm[phone]']"
-                    type="text"
+                    type="tel"
+                    :aria-invalid="Boolean(fieldError('phone'))"
+                    :aria-describedby="fieldError('phone') ? 'contact-phone-error' : undefined"
                     class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                     placeholder="(999) 999-9999"
                     @input="maskPhone"
                   />
                 </div>
-                <p v-if="fieldError('phone')" class="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p v-if="fieldError('phone')" id="contact-phone-error" class="text-red-600 dark:text-red-400 text-sm mt-1">
                   {{ fieldError("phone") }}
                 </p>
               </div>
@@ -226,11 +237,13 @@ const fieldError = (field) => {
                     id="contact-subject"
                     v-model="form['ContactForm[subject]']"
                     type="text"
+                    :aria-invalid="Boolean(fieldError('subject'))"
+                    :aria-describedby="fieldError('subject') ? 'contact-subject-error' : undefined"
                     class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                     placeholder="Subject"
                   />
                 </div>
-                <p v-if="fieldError('subject')" class="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p v-if="fieldError('subject')" id="contact-subject-error" class="text-red-600 dark:text-red-400 text-sm mt-1">
                   {{ fieldError("subject") }}
                 </p>
               </div>
@@ -242,6 +255,8 @@ const fieldError = (field) => {
                 <textarea
                   id="contact-body"
                   v-model="form['ContactForm[body]']"
+                  :aria-invalid="Boolean(fieldError('body'))"
+                  :aria-describedby="fieldError('body') ? 'contact-body-error' : undefined"
                   :class="[
                     'w-full py-2.5 px-3 bg-transparent border rounded-lg outline-none text-gray-900 dark:text-white placeholder-gray-400 h-[120px] transition-all focus:ring-2',
                     fieldError('body')
@@ -250,7 +265,7 @@ const fieldError = (field) => {
                   ]"
                   placeholder="Your message..."
                 />
-                <p v-if="fieldError('body')" class="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p v-if="fieldError('body')" id="contact-body-error" class="text-red-600 dark:text-red-400 text-sm mt-1">
                   {{ fieldError("body") }}
                 </p>
               </div>
@@ -269,7 +284,7 @@ const fieldError = (field) => {
                   Submit
                 </button>
               </div>
-              <p v-if="fieldError('turnstileToken')" class="text-red-600 dark:text-red-400 text-sm mt-1">
+              <p v-if="fieldError('turnstileToken')" id="contact-turnstile-error" role="alert" aria-live="polite" class="text-red-600 dark:text-red-400 text-sm mt-1">
                 {{ fieldError("turnstileToken") }}
               </p>
             </form>
