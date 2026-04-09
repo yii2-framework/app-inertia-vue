@@ -27,7 +27,7 @@
         "codeception/module-asserts": "^3.3",
         "codeception/module-filesystem": "^3.0",
         "codeception/module-phpbrowser": "^4.0",
-        "codeception/module-yii2": "^1.1",
+        "codeception/module-yii2": "^2.0",
         "codeception/verify": "^3.4",
         "infection/infection": "^0.32",
         "maglnet/composer-require-checker": "^4.17",
