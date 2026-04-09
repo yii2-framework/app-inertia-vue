@@ -7,13 +7,16 @@ import { Head, Link } from "@inertiajs/vue3";
 
   <div class="grow flex items-center justify-center text-center">
     <div class="mx-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
-      <h1 class="font-display text-3xl sm:text-4xl font-semibold mb-4 text-gray-900 dark:text-white tracking-tight">
+      <h1
+        class="font-display text-3xl sm:text-4xl font-semibold mb-4 text-gray-900 dark:text-white tracking-tight"
+      >
         This is the About page.
       </h1>
 
       <p class="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">
         You may modify the following file to customize its content:
-        <code class="block mt-2 text-sm font-display text-primary-600 dark:text-primary-400"
+        <code
+          class="block mt-2 text-sm font-display text-primary-600 dark:text-primary-400"
           >resources/js/Pages/Site/About.vue</code
         >
       </p>

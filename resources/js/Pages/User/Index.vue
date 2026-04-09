@@ -68,9 +68,11 @@ watch(
 
 const buildParams = () => {
   const params = {};
-  if (filterUsername.value) params["UserSearch[username]"] = filterUsername.value;
+  if (filterUsername.value)
+    params["UserSearch[username]"] = filterUsername.value;
   if (filterEmail.value) params["UserSearch[email]"] = filterEmail.value;
-  if (filterStatus.value !== "") params["UserSearch[status]"] = filterStatus.value;
+  if (filterStatus.value !== "")
+    params["UserSearch[status]"] = filterStatus.value;
 
   if (sortParam.value) params.sort = sortParam.value;
 
@@ -108,12 +110,20 @@ const sortBy = (attribute) => {
 };
 
 const goToPage = (page) => {
-  if (page < 1 || page > props.pagination.pageCount || page === props.pagination.currentPage) {
+  if (
+    page < 1 ||
+    page > props.pagination.pageCount ||
+    page === props.pagination.currentPage
+  ) {
     return;
   }
 
   cancelPendingFilter();
-  router.get("/user/index", { ...buildParams(), page }, { preserveState: true, preserveScroll: true });
+  router.get(
+    "/user/index",
+    { ...buildParams(), page },
+    { preserveState: true, preserveScroll: true },
+  );
 };
 
 const sortIcon = (attribute) => {
@@ -136,7 +146,8 @@ const formatDate = (timestamp) => {
   return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
 };
 
-const getStatus = (status) => statusMap[status] || { label: "Unknown", type: "dark" };
+const getStatus = (status) =>
+  statusMap[status] || { label: "Unknown", type: "dark" };
 </script>
 
 <template>
@@ -151,16 +162,28 @@ const getStatus = (status) => statusMap[status] || { label: "Unknown", type: "da
         <div class="hidden md:flex md:w-1/3 login-brand-panel text-white">
           <div class="flex flex-col justify-between p-5 lg:p-6 w-full">
             <div>
-              <img src="/images/yii3_full_white_for_dark.svg" alt="Yii Framework" class="mb-6" height="36" />
+              <img
+                src="/images/yii3_full_white_for_dark.svg"
+                alt="Yii Framework"
+                class="mb-6"
+                height="36"
+              />
             </div>
             <div>
-              <h1 class="font-display font-bold mb-3 text-[1.75rem] leading-tight">User<br />Directory</h1>
+              <h1
+                class="font-display font-bold mb-3 text-[1.75rem] leading-tight"
+              >
+                User<br />Directory
+              </h1>
               <p class="opacity-75 text-[0.9rem]">
-                Browse, filter, and sort registered users. Use the search fields to find specific accounts.
+                Browse, filter, and sort registered users. Use the search fields
+                to find specific accounts.
               </p>
             </div>
             <div class="mt-4">
-              <span class="inline-block bg-white/20 rounded-full px-4 py-1.5 text-sm font-medium backdrop-blur-sm">
+              <span
+                class="inline-block bg-white/20 rounded-full px-4 py-1.5 text-sm font-medium backdrop-blur-sm"
+              >
                 {{ pagination.totalCount }}
                 {{ pagination.totalCount === 1 ? "user" : "users" }}
               </span>
@@ -173,8 +196,12 @@ const getStatus = (status) => statusMap[status] || { label: "Unknown", type: "da
           <div class="p-4 lg:p-5">
             <!-- Mobile header -->
             <div class="md:hidden text-center mb-4">
-              <h1 class="text-xl font-bold text-gray-900 dark:text-white">Users</h1>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Browse and filter registered users</p>
+              <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+                Users
+              </h1>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Browse and filter registered users
+              </p>
             </div>
 
             <div class="overflow-x-auto">
@@ -251,20 +278,27 @@ const getStatus = (status) => statusMap[status] || { label: "Unknown", type: "da
                         <option :value="STATUS_DELETED">Deleted</option>
                       </select>
                     </FwbTableCell>
-                    <FwbTableCell class="!py-2 bg-gray-100 dark:bg-gray-900/50" />
+                    <FwbTableCell
+                      class="!py-2 bg-gray-100 dark:bg-gray-900/50"
+                    />
                   </FwbTableRow>
                 </FwbTableBody>
 
                 <!-- Data rows -->
                 <FwbTableBody>
                   <FwbTableRow v-if="users.length === 0">
-                    <FwbTableCell colspan="4" class="text-center !py-10 text-gray-500 dark:text-gray-400">
+                    <FwbTableCell
+                      colspan="4"
+                      class="text-center !py-10 text-gray-500 dark:text-gray-400"
+                    >
                       No results found.
                     </FwbTableCell>
                   </FwbTableRow>
 
                   <FwbTableRow v-for="user in users" :key="user.id">
-                    <FwbTableCell class="font-medium text-gray-900 dark:text-white">
+                    <FwbTableCell
+                      class="font-medium text-gray-900 dark:text-white"
+                    >
                       {{ user.username }}
                     </FwbTableCell>
                     <FwbTableCell>
@@ -287,17 +321,27 @@ const getStatus = (status) => statusMap[status] || { label: "Unknown", type: "da
               </FwbTable>
 
               <!-- Summary -->
-              <div v-if="users.length > 0" class="text-xs text-gray-500 dark:text-gray-400 text-right mt-2">
+              <div
+                v-if="users.length > 0"
+                class="text-xs text-gray-500 dark:text-gray-400 text-right mt-2"
+              >
                 Showing
                 {{ (pagination.currentPage - 1) * pagination.pageSize + 1 }}-{{
-                  Math.min(pagination.currentPage * pagination.pageSize, pagination.totalCount)
+                  Math.min(
+                    pagination.currentPage * pagination.pageSize,
+                    pagination.totalCount,
+                  )
                 }}
-                of {{ pagination.totalCount }} {{ pagination.totalCount === 1 ? "item" : "items" }}.
+                of {{ pagination.totalCount }}
+                {{ pagination.totalCount === 1 ? "item" : "items" }}.
               </div>
             </div>
 
             <!-- Pagination -->
-            <div v-if="pagination.pageCount > 1" class="flex justify-center mt-4">
+            <div
+              v-if="pagination.pageCount > 1"
+              class="flex justify-center mt-4"
+            >
               <FwbPagination
                 :model-value="pagination.currentPage"
                 :total-pages="pagination.pageCount"

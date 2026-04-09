@@ -58,7 +58,9 @@ onUnmounted(() => {
 <template>
   <button
     class="p-2 text-gray-400 hover:text-white rounded-md text-lg transition-colors cursor-pointer"
-    :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+    :aria-label="
+      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+    "
     @click="toggle"
   >
     {{ theme === "dark" ? "&#9728;" : "&#127769;" }}

@@ -52,16 +52,23 @@ const extensions = [
 
   <div class="grow flex flex-col justify-center">
     <!-- Hero banner -->
-    <div class="hero-banner text-white rounded-2xl p-8 sm:p-10 mb-6 relative overflow-hidden">
+    <div
+      class="hero-banner text-white rounded-2xl p-8 sm:p-10 mb-6 relative overflow-hidden"
+    >
       <img
         src="/images/yii3_full_white_for_dark.svg"
         alt=""
         class="hidden lg:block absolute right-10 top-1/2 -translate-y-1/6 h-[120px] opacity-40"
       />
       <div class="relative">
-        <h1 class="font-display text-4xl sm:text-5xl font-bold mb-4 tracking-tight">Build with Yii Framework</h1>
+        <h1
+          class="font-display text-4xl sm:text-5xl font-bold mb-4 tracking-tight"
+        >
+          Build with Yii Framework
+        </h1>
         <p class="text-lg opacity-80 mb-6 max-w-[520px] leading-relaxed">
-          A high-performance PHP framework best for developing web applications. Fast, secure, and professional.
+          A high-performance PHP framework best for developing web applications.
+          Fast, secure, and professional.
         </p>
         <div class="flex gap-3 flex-wrap">
           <a
@@ -90,8 +97,12 @@ const extensions = [
         >
           <div class="p-5 grow">
             <div class="flex items-center mb-3">
-              <span class="text-2xl leading-none" aria-hidden="true">{{ ext.icon }}</span>
-              <h3 class="font-display text-sm font-bold ml-2 text-gray-900 dark:text-white">
+              <span class="text-2xl leading-none" aria-hidden="true">{{
+                ext.icon
+              }}</span>
+              <h3
+                class="font-display text-sm font-bold ml-2 text-gray-900 dark:text-white"
+              >
                 {{ ext.name }}
               </h3>
             </div>

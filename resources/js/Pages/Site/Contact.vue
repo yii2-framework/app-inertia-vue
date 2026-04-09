@@ -64,11 +64,22 @@ const fieldError = (field) => {
         <div class="hidden md:flex md:w-1/3 login-brand-panel text-white">
           <div class="flex flex-col justify-between p-6 lg:p-8 w-full">
             <div>
-              <img src="/images/yii3_full_white_for_dark.svg" alt="Yii Framework" class="mb-6" height="40" />
+              <img
+                src="/images/yii3_full_white_for_dark.svg"
+                alt="Yii Framework"
+                class="mb-6"
+                height="40"
+              />
             </div>
             <div>
-              <h2 class="font-display font-bold mb-3 text-[1.75rem] leading-tight">Message<br />Received.</h2>
-              <p class="opacity-75 text-[0.9rem]">Thanks for reaching out. We will reply as soon as we can.</p>
+              <h2
+                class="font-display font-bold mb-3 text-[1.75rem] leading-tight"
+              >
+                Message<br />Received.
+              </h2>
+              <p class="opacity-75 text-[0.9rem]">
+                Thanks for reaching out. We will reply as soon as we can.
+              </p>
             </div>
           </div>
         </div>
@@ -76,9 +87,12 @@ const fieldError = (field) => {
         <!-- Content panel -->
         <div class="w-full md:w-2/3 flex items-center justify-center">
           <div class="p-6 lg:p-8 text-center w-full max-w-md">
-            <h1 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Thanks, we got it.</h1>
+            <h1 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+              Thanks, we got it.
+            </h1>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-              Your message has been delivered to the team. Want to send another note?
+              Your message has been delivered to the team. Want to send another
+              note?
             </p>
             <Link
               href="/site/contact"
@@ -102,12 +116,22 @@ const fieldError = (field) => {
         <div class="hidden md:flex md:w-1/3 login-brand-panel text-white">
           <div class="flex flex-col justify-between p-6 lg:p-8 w-full">
             <div>
-              <img src="/images/yii3_full_white_for_dark.svg" alt="Yii Framework" class="mb-6" height="40" />
+              <img
+                src="/images/yii3_full_white_for_dark.svg"
+                alt="Yii Framework"
+                class="mb-6"
+                height="40"
+              />
             </div>
             <div>
-              <h2 class="font-display font-bold mb-3 text-[1.75rem] leading-tight">Get In<br />Touch</h2>
+              <h2
+                class="font-display font-bold mb-3 text-[1.75rem] leading-tight"
+              >
+                Get In<br />Touch
+              </h2>
               <p class="opacity-75 text-[0.9rem]">
-                Have a question or business inquiry? We would love to hear from you.
+                Have a question or business inquiry? We would love to hear from
+                you.
               </p>
             </div>
           </div>
@@ -117,7 +141,9 @@ const fieldError = (field) => {
         <div class="w-full md:w-2/3">
           <div class="p-6 lg:p-8">
             <div class="text-center mb-6">
-              <h1 class="text-2xl font-bold mb-1 text-gray-900 dark:text-white">Contact us</h1>
+              <h1 class="text-2xl font-bold mb-1 text-gray-900 dark:text-white">
+                Contact us
+              </h1>
               <p class="text-sm text-gray-500 dark:text-gray-400">
                 Fill out the form below and we will get back to you
               </p>
@@ -126,7 +152,9 @@ const fieldError = (field) => {
             <form @submit.prevent="submit">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label for="contact-name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                  <label
+                    for="contact-name"
+                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                     >Your Name</label
                   >
                   <div
@@ -137,7 +165,9 @@ const fieldError = (field) => {
                         : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                     ]"
                   >
-                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
+                    <span
+                      class="flex items-center justify-center pl-3 pr-2 text-gray-400"
+                      aria-hidden="true"
                       >&#128100;</span
                     >
                     <input
@@ -145,7 +175,9 @@ const fieldError = (field) => {
                       v-model="form['ContactForm[name]']"
                       type="text"
                       :aria-invalid="Boolean(fieldError('name'))"
-                      :aria-describedby="fieldError('name') ? 'contact-name-error' : undefined"
+                      :aria-describedby="
+                        fieldError('name') ? 'contact-name-error' : undefined
+                      "
                       class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                       placeholder="Name"
                       autofocus
@@ -161,7 +193,9 @@ const fieldError = (field) => {
                 </div>
 
                 <div>
-                  <label for="contact-email" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                  <label
+                    for="contact-email"
+                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                     >Your Email</label
                   >
                   <div
@@ -172,7 +206,9 @@ const fieldError = (field) => {
                         : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                     ]"
                   >
-                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
+                    <span
+                      class="flex items-center justify-center pl-3 pr-2 text-gray-400"
+                      aria-hidden="true"
                       >&#9993;</span
                     >
                     <input
@@ -180,7 +216,9 @@ const fieldError = (field) => {
                       v-model="form['ContactForm[email]']"
                       type="email"
                       :aria-invalid="Boolean(fieldError('email'))"
-                      :aria-describedby="fieldError('email') ? 'contact-email-error' : undefined"
+                      :aria-describedby="
+                        fieldError('email') ? 'contact-email-error' : undefined
+                      "
                       class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                       placeholder="email@example.com"
                     />
@@ -196,7 +234,9 @@ const fieldError = (field) => {
               </div>
 
               <div class="mb-4">
-                <label for="contact-phone" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                <label
+                  for="contact-phone"
+                  class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                   >Phone</label
                 >
                 <div
@@ -207,7 +247,9 @@ const fieldError = (field) => {
                       : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                   ]"
                 >
-                  <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
+                  <span
+                    class="flex items-center justify-center pl-3 pr-2 text-gray-400"
+                    aria-hidden="true"
                     >&#128222;</span
                   >
                   <input
@@ -215,7 +257,9 @@ const fieldError = (field) => {
                     :value="form['ContactForm[phone]']"
                     type="tel"
                     :aria-invalid="Boolean(fieldError('phone'))"
-                    :aria-describedby="fieldError('phone') ? 'contact-phone-error' : undefined"
+                    :aria-describedby="
+                      fieldError('phone') ? 'contact-phone-error' : undefined
+                    "
                     class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                     placeholder="(999) 999-9999"
                     @input="maskPhone"
@@ -231,7 +275,9 @@ const fieldError = (field) => {
               </div>
 
               <div class="mb-4">
-                <label for="contact-subject" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                <label
+                  for="contact-subject"
+                  class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                   >Subject</label
                 >
                 <div
@@ -242,7 +288,9 @@ const fieldError = (field) => {
                       : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                   ]"
                 >
-                  <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
+                  <span
+                    class="flex items-center justify-center pl-3 pr-2 text-gray-400"
+                    aria-hidden="true"
                     >&#128172;</span
                   >
                   <input
@@ -250,7 +298,11 @@ const fieldError = (field) => {
                     v-model="form['ContactForm[subject]']"
                     type="text"
                     :aria-invalid="Boolean(fieldError('subject'))"
-                    :aria-describedby="fieldError('subject') ? 'contact-subject-error' : undefined"
+                    :aria-describedby="
+                      fieldError('subject')
+                        ? 'contact-subject-error'
+                        : undefined
+                    "
                     class="w-full py-2.5 pr-3 bg-transparent border-0 outline-none text-gray-900 dark:text-white placeholder-gray-400"
                     placeholder="Subject"
                   />
@@ -265,14 +317,18 @@ const fieldError = (field) => {
               </div>
 
               <div class="mb-4">
-                <label for="contact-body" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                <label
+                  for="contact-body"
+                  class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                   >Message</label
                 >
                 <textarea
                   id="contact-body"
                   v-model="form['ContactForm[body]']"
                   :aria-invalid="Boolean(fieldError('body'))"
-                  :aria-describedby="fieldError('body') ? 'contact-body-error' : undefined"
+                  :aria-describedby="
+                    fieldError('body') ? 'contact-body-error' : undefined
+                  "
                   :class="[
                     'w-full py-2.5 px-3 bg-transparent border rounded-lg outline-none text-gray-900 dark:text-white placeholder-gray-400 h-[120px] transition-all focus:ring-2',
                     fieldError('body')
@@ -299,7 +355,9 @@ const fieldError = (field) => {
                 <button
                   type="submit"
                   class="login-btn text-white px-6 py-2.5 rounded-lg cursor-pointer"
-                  :disabled="form.processing || !form['ContactForm[turnstileToken]']"
+                  :disabled="
+                    form.processing || !form['ContactForm[turnstileToken]']
+                  "
                 >
                   Submit
                 </button>

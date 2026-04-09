@@ -6,7 +6,9 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="mt-auto py-4 bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+  <footer
+    class="mt-auto py-4 bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800"
+  >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
         class="flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-500 dark:text-gray-400"

@@ -8,13 +8,19 @@ const open = ref(false);
 
 const isActive = (href) => {
   const current = page.url;
-  return current === href || current.startsWith(href + "?") || current.startsWith(href + "/");
+  return (
+    current === href ||
+    current.startsWith(href + "?") ||
+    current.startsWith(href + "/")
+  );
 };
 </script>
 
 <template>
   <header>
-    <nav class="fixed top-0 inset-x-0 z-50 bg-gray-950 border-b border-gray-800/50">
+    <nav
+      class="fixed top-0 inset-x-0 z-50 bg-gray-950 border-b border-gray-800/50"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <!-- Brand -->
@@ -32,7 +38,9 @@ const isActive = (href) => {
               prefetch
               :class="[
                 'px-3 py-2 text-sm rounded-md transition-colors',
-                isActive('/') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+                isActive('/')
+                  ? 'text-primary-400 font-medium'
+                  : 'text-gray-400 hover:text-white',
               ]"
             >
               Home
@@ -42,7 +50,9 @@ const isActive = (href) => {
               prefetch
               :class="[
                 'px-3 py-2 text-sm rounded-md transition-colors',
-                isActive('/site/about') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+                isActive('/site/about')
+                  ? 'text-primary-400 font-medium'
+                  : 'text-gray-400 hover:text-white',
               ]"
             >
               About
@@ -52,7 +62,9 @@ const isActive = (href) => {
               prefetch
               :class="[
                 'px-3 py-2 text-sm rounded-md transition-colors',
-                isActive('/site/contact') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+                isActive('/site/contact')
+                  ? 'text-primary-400 font-medium'
+                  : 'text-gray-400 hover:text-white',
               ]"
             >
               Contact
@@ -63,7 +75,9 @@ const isActive = (href) => {
               prefetch
               :class="[
                 'px-3 py-2 text-sm rounded-md transition-colors',
-                isActive('/user/index') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+                isActive('/user/index')
+                  ? 'text-primary-400 font-medium'
+                  : 'text-gray-400 hover:text-white',
               ]"
             >
               Users
@@ -74,7 +88,9 @@ const isActive = (href) => {
               prefetch
               :class="[
                 'px-3 py-2 text-sm rounded-md transition-colors',
-                isActive('/user/signup') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+                isActive('/user/signup')
+                  ? 'text-primary-400 font-medium'
+                  : 'text-gray-400 hover:text-white',
               ]"
             >
               Signup
@@ -85,7 +101,9 @@ const isActive = (href) => {
               prefetch
               :class="[
                 'px-3 py-2 text-sm rounded-md transition-colors',
-                isActive('/user/login') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+                isActive('/user/login')
+                  ? 'text-primary-400 font-medium'
+                  : 'text-gray-400 hover:text-white',
               ]"
             >
               Login
@@ -113,9 +131,25 @@ const isActive = (href) => {
               aria-label="Toggle navigation"
               @click="open = !open"
             >
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path v-if="!open" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                <path v-else stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  v-if="!open"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+                <path
+                  v-else
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -123,13 +157,18 @@ const isActive = (href) => {
       </div>
 
       <!-- Mobile menu -->
-      <div v-show="open" class="md:hidden border-t border-gray-800/50 bg-gray-950">
+      <div
+        v-show="open"
+        class="md:hidden border-t border-gray-800/50 bg-gray-950"
+      >
         <div class="px-4 py-3 space-y-1">
           <Link
             href="/"
             :class="[
               'block px-3 py-2 text-sm rounded-md',
-              isActive('/') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+              isActive('/')
+                ? 'text-primary-400 font-medium'
+                : 'text-gray-400 hover:text-white',
             ]"
           >
             Home
@@ -138,7 +177,9 @@ const isActive = (href) => {
             href="/site/about"
             :class="[
               'block px-3 py-2 text-sm rounded-md',
-              isActive('/site/about') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+              isActive('/site/about')
+                ? 'text-primary-400 font-medium'
+                : 'text-gray-400 hover:text-white',
             ]"
           >
             About
@@ -147,7 +188,9 @@ const isActive = (href) => {
             href="/site/contact"
             :class="[
               'block px-3 py-2 text-sm rounded-md',
-              isActive('/site/contact') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+              isActive('/site/contact')
+                ? 'text-primary-400 font-medium'
+                : 'text-gray-400 hover:text-white',
             ]"
           >
             Contact
@@ -157,7 +200,9 @@ const isActive = (href) => {
             href="/user/index"
             :class="[
               'block px-3 py-2 text-sm rounded-md',
-              isActive('/user/index') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+              isActive('/user/index')
+                ? 'text-primary-400 font-medium'
+                : 'text-gray-400 hover:text-white',
             ]"
           >
             Users
@@ -167,7 +212,9 @@ const isActive = (href) => {
             href="/user/signup"
             :class="[
               'block px-3 py-2 text-sm rounded-md',
-              isActive('/user/signup') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+              isActive('/user/signup')
+                ? 'text-primary-400 font-medium'
+                : 'text-gray-400 hover:text-white',
             ]"
           >
             Signup
@@ -177,7 +224,9 @@ const isActive = (href) => {
             href="/user/login"
             :class="[
               'block px-3 py-2 text-sm rounded-md',
-              isActive('/user/login') ? 'text-primary-400 font-medium' : 'text-gray-400 hover:text-white',
+              isActive('/user/login')
+                ? 'text-primary-400 font-medium'
+                : 'text-gray-400 hover:text-white',
             ]"
           >
             Login

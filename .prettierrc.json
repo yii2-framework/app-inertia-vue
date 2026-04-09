@@ -3,7 +3,7 @@
     "useTabs": false,
     "singleQuote": false,
     "trailingComma": "all",
-    "printWidth": 120,
+    "printWidth": 80,
     "overrides": [
         {
             "files": ["*.js", "*.jsx", "*.ts", "*.tsx", "*.vue", "*.css", "*.scss", "*.html", "*.yml", "*.yaml"],

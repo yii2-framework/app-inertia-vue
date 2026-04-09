@@ -13,3 +13,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - chore: bump `inertia` and `inertia-vue` and switch `config/web.php` to register the canonical `\yii\inertia\Vite` component via the Vue `Bootstrap`.
 - chore: upgrade Vite to `v8` and `@vitejs/plugin-vue` to `v6` for compatibility.
 - chore: add contact-submitted success screen with card layout and update screenshots.
+- chore: add `.prettierrc.json`, sync linter configs with `app-inertia-react`, and apply Prettier formatting.
