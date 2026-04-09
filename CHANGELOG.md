@@ -12,3 +12,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - fix: send verification email outside the DB transaction in `SignupForm::signup()` to avoid holding locks during mailer I/O; the user row is preserved if the mailer fails after commit.
 - chore: bump `inertia` and `inertia-vue` and switch `config/web.php` to register the canonical `\yii\inertia\Vite` component via the Vue `Bootstrap`.
 - chore: upgrade Vite to `v8` and `@vitejs/plugin-vue` to `v6` for compatibility.
+- chore: add contact-submitted success screen with card layout and update screenshots.
