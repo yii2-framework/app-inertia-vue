@@ -14,7 +14,7 @@ use yii\console\{Controller, ExitCode};
  * @author Wilmer Arambula <terabytesoftw@gmail.com>
  * @since 0.1
  */
-class HelloController extends Controller
+final class HelloController extends Controller
 {
     /**
      * Command echoes what you have entered as the message.

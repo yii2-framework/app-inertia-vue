@@ -16,16 +16,41 @@ use yii\mail\MailerInterface;
  * @author Wilmer Arambula <terabytesoftw@gmail.com>
  * @since 0.1
  */
-class ContactForm extends Model
+final class ContactForm extends Model
 {
+    /**
+     * Message body submitted by the user.
+     */
     public string $body = '';
+
+    /**
+     * Sender email address.
+     */
     public string $email = '';
+
+    /**
+     * Sender full name.
+     */
     public string $name = '';
+
+    /**
+     * Sender phone number in `(999) 999-9999` format.
+     */
     public string $phone = '';
+
+    /**
+     * Message subject.
+     */
     public string $subject = '';
+
+    /**
+     * Cloudflare Turnstile CAPTCHA token submitted by the client.
+     */
     public string $turnstileToken = '';
 
     /**
+     * Returns the attribute labels for form fields.
+     *
      * @return array Attribute labels for the model properties.
      *
      * @phpstan-return array<string, string>
@@ -39,6 +64,11 @@ class ContactForm extends Model
 
     /**
      * Sends an email to the specified email address using the information collected by this model.
+     *
+     * @param MailerInterface $mailer Mailer component used to send the email.
+     * @param string $email Recipient email address.
+     * @param string $senderEmail Sender email address used in the `From` header.
+     * @param string $senderName Sender display name used in the `From` header.
      *
      * @return bool Whether the email was sent successfully.
      */
@@ -60,6 +90,8 @@ class ContactForm extends Model
     }
 
     /**
+     * Returns the validation rules for the form attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>
@@ -96,7 +128,12 @@ class ContactForm extends Model
     }
 
     /**
-     * Validates the Turnstile CAPTCHA token via Cloudflare API.
+     * Validates the Turnstile CAPTCHA token via the Cloudflare API.
+     *
+     * Inline validator for the `turnstileToken` attribute.
+     *
+     * @param string $attribute Attribute currently being validated.
+     * @param mixed $params Validator parameters configured in {@see rules()}.
      */
     public function validateTurnstile(string $attribute, mixed $params): void
     {
@@ -151,7 +188,9 @@ class ContactForm extends Model
     }
 
     /**
-     * Sends the token to Cloudflare Turnstile API for verification.
+     * Sends the token to the Cloudflare Turnstile API for verification.
+     *
+     * @param string $secretKey Cloudflare Turnstile secret key used to authenticate the request.
      *
      * @return string|null API response body, or `null` on failure.
      */

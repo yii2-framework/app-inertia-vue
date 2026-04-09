@@ -15,6 +15,8 @@ use yii\data\ActiveDataProvider;
 final class UserSearch extends User
 {
     /**
+     * Returns the validation rules for the search attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>

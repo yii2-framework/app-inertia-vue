@@ -13,8 +13,11 @@ use yii\base\Model;
  * @author Wilmer Arambula <terabytesoftw@gmail.com>
  * @since 0.1
  */
-class VerifyEmailForm extends Model
+final class VerifyEmailForm extends Model
 {
+    /**
+     * User resolved from the verification token, or `null` if not found.
+     */
     private User|null $user = null;
 
     /**

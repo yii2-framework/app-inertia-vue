@@ -8,11 +8,11 @@ use yii\inertia\vue\Vite;
 use yii\web\View;
 
 /**
- * @var Page $page
- * @var string $id
- * @var string $pageJson
- * @var View $this
- * @phpstan-var Vite $vite
+ * @var string $id Unique ID for the root element.
+ * @var Page $page Page data.
+ * @var string $pageJson JSON-encoded page data.
+ * @var View $this View component instance.
+ * @var Vite $vite Vite asset manager instance.
  */
 $vite = Yii::$app->inertiaVue;
 

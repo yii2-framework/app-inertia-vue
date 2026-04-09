@@ -55,7 +55,7 @@
                     <p class="alert-content">SPA navigation • Composition API • Script setup • No full page reloads</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>PHP 8.2+ / Vite</strong></p>
+                    <p class="alert-title"><strong>PHP 8.3+ / Vite</strong></p>
                     <p class="alert-content">Typed properties • Strict types • HMR • Asset bundling via Vite</p>
                 </div>
                 <div class="alert-box">

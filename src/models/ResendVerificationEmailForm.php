@@ -17,9 +17,14 @@ use yii\mail\MailerInterface;
  */
 final class ResendVerificationEmailForm extends Model
 {
+    /**
+     * Email address of the user requesting a new verification email.
+     */
     public string $email = '';
 
     /**
+     * Returns the validation rules for the form attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>

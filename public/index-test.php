@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-// NOTE: Make sure this file is not accessible when deployed to production
+// note: make sure this file is not accessible when deployed to production.
 $clientIp = $_SERVER['REMOTE_ADDR'] ?? '';
 
 if (!in_array($clientIp, ['127.0.0.1', '::1'], true)) {

@@ -17,11 +17,22 @@ use yii\mail\MailerInterface;
  */
 final class SignupForm extends Model
 {
+    /**
+     * Email address used to register the new user.
+     */
     public string $email = '';
+    /**
+     * Plain text password chosen by the new user.
+     */
     public string $password = '';
+    /**
+     * Username chosen by the new user.
+     */
     public string $username = '';
 
     /**
+     * Returns the validation rules for the form attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>
@@ -93,7 +104,7 @@ final class SignupForm extends Model
      * @param string $supportEmail Support email address to use as the sender.
      * @param string $appName Application name to use in the email subject and sender name.
      *
-     * @return bool Whether the email was sent successfully.
+     * @return bool|null `true` on success, `false` on failure, or `null` if validation fails.
      */
     public function signup(MailerInterface $mailer, string $supportEmail, string $appName): bool|null
     {

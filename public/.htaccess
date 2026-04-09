@@ -4,5 +4,5 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# otherwise forward the request to index-test.php
+# otherwise forward the request to index.php
 RewriteRule . index.php

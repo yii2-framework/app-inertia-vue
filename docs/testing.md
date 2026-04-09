@@ -6,7 +6,6 @@ Tool references:
 
 - [Composer Require Checker](https://github.com/maglnet/ComposerRequireChecker) for dependency definition checks.
 - [Easy Coding Standard (ECS)](https://github.com/easy-coding-standard/easy-coding-standard) for coding standards.
-- [Infection](https://infection.github.io/) for mutation testing.
 - [PHPStan](https://phpstan.org/) for static analysis.
 - [PHPUnit](https://phpunit.de/) for unit tests.
 - [Rector](https://github.com/rectorphp/rector) for automated refactoring.

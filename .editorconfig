@@ -10,7 +10,7 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
-[*.js]
+[*.{js,jsx,ts,tsx,vue}]
 indent_size = 2
 
 [*.md]

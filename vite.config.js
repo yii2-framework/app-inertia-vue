@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [tailwindcss(), vue()],
   build: {
     manifest: true,
+    copyPublicDir: false,
     outDir: "public/build",
     rollupOptions: {
       input: "resources/js/app.js",

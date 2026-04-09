@@ -5,15 +5,22 @@ declare(strict_types=1);
 /**
  * Router script for PHP built-in server with pretty URLs.
  *
- * Usage: php -S localhost:8080 -t public public/router.php
+ * Usage example:
+ *
+ * ```bash
+ * // built-in server with router
+ * php -S localhost:8080 -t public public/router.php
+ *
+ * // or using Yii serve command
+ * ./yii serve --router=public/router.php
+ * ```
  */
-
 $path = (string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $decodedPath = rawurldecode($path);
 $publicDir = realpath(__DIR__);
 $candidate = realpath(__DIR__ . $decodedPath);
 
-// Serve existing static files directly (CSS, JS, images, etc.)
+// serve existing static files directly (CSS, JS, images, etc.).
 if (
     $decodedPath !== '/'
     && $publicDir !== false
@@ -24,5 +31,5 @@ if (
     return false;
 }
 
-// Route everything else through index-test.php for test environment
+// route everything else through index-test.php for test environment.
 require __DIR__ . '/index-test.php';

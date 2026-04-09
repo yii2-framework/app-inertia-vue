@@ -15,12 +15,26 @@ use yii\base\Model;
  * @author Wilmer Arambula <terabytesoftw@gmail.com>
  * @since 0.1
  */
-class LoginForm extends Model
+final class LoginForm extends Model
 {
+    /**
+     * Plain text password submitted by the user.
+     */
     public string $password = '';
+
+    /**
+     * Whether to keep the user logged in across browser sessions.
+     */
     public bool $rememberMe = true;
+
+    /**
+     * Username submitted by the user.
+     */
     public string $username = '';
 
+    /**
+     * Resolved user instance, or `null` when not yet loaded or not found.
+     */
     private User|null $user = null;
 
     /**
@@ -58,6 +72,8 @@ class LoginForm extends Model
     }
 
     /**
+     * Returns the validation rules for the form attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>
@@ -84,9 +100,12 @@ class LoginForm extends Model
     }
 
     /**
-     * Validates the password.
+     * Validates the password against the resolved user.
      *
-     * This method serves as the inline validation for password.
+     * Inline validator for the `password` attribute.
+     *
+     * @param string $attribute Attribute currently being validated.
+     * @param mixed $params Validator parameters configured in {@see rules()}.
      */
     public function validatePassword(string $attribute, mixed $params): void
     {

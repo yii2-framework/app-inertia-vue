@@ -14,10 +14,16 @@ use yii\base\Model;
  * @author Wilmer Arambula <terabytesoftw@gmail.com>
  * @since 0.1
  */
-class ResetPasswordForm extends Model
+final class ResetPasswordForm extends Model
 {
+    /**
+     * New plain text password to assign to the user.
+     */
     public string $password = '';
 
+    /**
+     * User resolved from the password reset token, or `null` if not found.
+     */
     private User|null $user = null;
 
     /**
@@ -66,6 +72,8 @@ class ResetPasswordForm extends Model
     }
 
     /**
+     * Returns the validation rules for the form attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>

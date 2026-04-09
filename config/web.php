@@ -39,24 +39,19 @@ $config = [
         'inertia' => [
             'class' => Manager::class,
             'rootView' => '@app/resources/views/app.php',
-            'version' => static function (): string {
-                $path = Yii::getAlias('@webroot/build/.vite/manifest.json');
-
-                return is_file($path) ? (string) filemtime($path) : '';
-            },
             'shared' => [
                 'auth' => static function (): array {
                     $user = Yii::$app->user;
                     $identity = $user->identity;
 
                     return [
+                        'canViewUsers' => !$user->isGuest && $user->can('viewUsers'),
+                        'isGuest' => $user->isGuest,
                         'user' => $identity instanceof User ? [
                             'id' => $identity->id,
                             'username' => $identity->username,
                             'email' => $identity->email,
                         ] : null,
-                        'isGuest' => $user->isGuest,
-                        'canViewUsers' => !$user->isGuest && $user->can('viewUsers'),
                     ];
                 },
                 'appName' => static fn(): string => Yii::$app->name,
@@ -64,17 +59,23 @@ $config = [
                     return Yii::$app->params['turnstile.siteKey'];
                 },
             ],
+            'version' => static function (): string {
+                $path = Yii::getAlias('@webroot/build/.vite/manifest.json');
+
+                return is_file($path) ? (string) filemtime($path) : '';
+            },
         ],
         'inertiaVue' => [
             'class' => Vite::class,
-            'manifestPath' => '@webroot/build/.vite/manifest.json',
             'baseUrl' => '@web/build',
-            'entrypoints' => ['resources/js/app.js'],
             'devMode' => YII_ENV === 'dev',
             'devServerUrl' => 'http://localhost:5173',
+            'entrypoints' => [
+                'resources/js/app.js',
+            ],
+            'manifestPath' => '@webroot/build/.vite/manifest.json',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => FileTarget::class,
@@ -84,6 +85,7 @@ $config = [
                     ],
                 ],
             ],
+            'traceLevel' => YII_DEBUG ? 3 : 0,
         ],
         'mailer' => MailerInterface::class,
         'request' => [

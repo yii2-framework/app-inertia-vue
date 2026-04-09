@@ -1,3 +1,15 @@
+/**
+ * Application stylesheet for the Yii2 + Inertia.js + Vue 3 reference app.
+ *
+ * Bundles Tailwind CSS v4 (via `@import "tailwindcss"`), the Flowbite plugin, and the Flowbite + Flowbite-Vue
+ * design tokens used throughout the UI. Declares the light and dark themes and the brand typography stack.
+ *
+ * Imported by `resources/js/app.js` so Vite includes it in the production bundle served through the Inertia
+ * root view emitted by `yii\inertia\vue\Bootstrap`.
+ *
+ * @see https://tailwindcss.com/docs/v4-beta
+ * @see https://flowbite.com/docs/getting-started/introduction
+ */
 @import "tailwindcss";
 @plugin "flowbite/plugin";
 @source "../../node_modules/flowbite";

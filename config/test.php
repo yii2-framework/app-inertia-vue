@@ -18,44 +18,42 @@ $params = require __DIR__ . '/params.php';
  */
 return [
     'id' => 'app-inertia-vue-tests',
-    'basePath' => dirname(__DIR__),
-    'controllerNamespace' => 'app\\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => dirname(__DIR__) . '/node_modules',
     ],
+    'basePath' => dirname(__DIR__),
     'bootstrap' => [
         Bootstrap::class,
         MailerBootstrap::class,
     ],
-    'language' => 'en-US',
     'components' => [
-        'authManager' => [
-            'class' => PhpManager::class,
-        ],
         'assetManager' => [
             'basePath' => __DIR__ . '/../public/assets',
+        ],
+        'authManager' => [
+            'class' => PhpManager::class,
         ],
         'db' => require __DIR__ . '/test_db.php',
         'inertia' => [
             'class' => Manager::class,
             'rootView' => '@app/resources/views/app.php',
             'shared' => [
+                'appName' => static fn(): string => Yii::$app->name,
                 'auth' => static function (): array {
                     $user = Yii::$app->user;
                     $identity = $user->identity;
 
                     return [
+                        'canViewUsers' => !$user->isGuest && $user->can('viewUsers'),
+                        'isGuest' => $user->isGuest,
                         'user' => $identity instanceof User ? [
                             'id' => $identity->id,
                             'username' => $identity->username,
                             'email' => $identity->email,
                         ] : null,
-                        'isGuest' => $user->isGuest,
-                        'canViewUsers' => !$user->isGuest && $user->can('viewUsers'),
                     ];
                 },
-                'appName' => static fn(): string => Yii::$app->name,
                 'turnstileSiteKey' => static function (): string {
                     return Yii::$app->params['turnstile.siteKey'];
                 },
@@ -63,11 +61,13 @@ return [
         ],
         'inertiaVue' => [
             'class' => Vite::class,
-            'manifestPath' => '@webroot/build/.vite/manifest.json',
             'baseUrl' => '@web/build',
-            'entrypoints' => ['resources/js/app.js'],
             'devMode' => true,
             'devServerUrl' => 'http://localhost:5173',
+            'entrypoints' => [
+                'resources/js/app.js',
+            ],
+            'manifestPath' => '@webroot/build/.vite/manifest.json',
         ],
         'mailer' => [
             'class' => Mailer::class,
@@ -94,5 +94,7 @@ return [
             ],
         ],
     ],
+    'controllerNamespace' => 'app\\controllers',
+    'language' => 'en-US',
     'params' => [...$params, 'turnstile.secretKey' => ''],
 ];

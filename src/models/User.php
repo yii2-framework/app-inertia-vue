@@ -30,10 +30,26 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    /**
+     * User is active and allowed to log in.
+     */
     public const STATUS_ACTIVE = 10;
+    /**
+     * User is deleted and not allowed to log in.
+     */
     public const STATUS_DELETED = 0;
+    /**
+     * User is inactive and not allowed to log in.
+     */
     public const STATUS_INACTIVE = 9;
 
+    /**
+     * Returns the behaviors attached to this ActiveRecord.
+     *
+     * @return array List of behavior configurations indexed by behavior name or class.
+     *
+     * @phpstan-return array<array{class: class-string}|class-string>
+     */
     public function behaviors(): array
     {
         return [
@@ -122,7 +138,12 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds an identity by the given token.
+     * Finds an identity by the given access token.
+     *
+     * @param mixed $token Access token to look up.
+     * @param mixed $type Type identifier of the token, used to differentiate token contexts.
+     *
+     * @throws NotSupportedException Always, since access token authentication is not implemented.
      */
     public static function findIdentityByAccessToken($token, $type = null): never
     {
@@ -130,7 +151,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates "remember me" authentication key.
+     * Generates the "remember me" authentication key and assigns it to the user.
      */
     public function generateAuthKey(): void
     {
@@ -138,7 +159,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new token for email verification.
+     * Generates a new email verification token and assigns it to the user.
      */
     public function generateEmailVerificationToken(): void
     {
@@ -146,7 +167,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new password reset token.
+     * Generates a new password reset token and assigns it to the user.
      */
     public function generatePasswordResetToken(): void
     {
@@ -154,6 +175,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns the authentication key used to validate the user identity cookie.
+     *
      * @return string Current user `auth_key` value.
      */
     public function getAuthKey(): string
@@ -162,6 +185,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns the primary key value identifying this user.
+     *
      * @return int|string Current user ID.
      */
     public function getId(): int|string
@@ -195,7 +220,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Removes password reset token.
+     * Clears the password reset token from the user.
      */
     public function removePasswordResetToken(): void
     {
@@ -203,6 +228,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns the validation rules for the model attributes.
+     *
      * @return array Validation rules for the model properties.
      *
      * @phpstan-return array<array<mixed>>
@@ -238,6 +265,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Returns the database table name associated with this ActiveRecord class.
+     *
      * @return string Name of the database table associated with this ActiveRecord class.
      */
     public static function tableName(): string
@@ -246,7 +275,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Validates auth key.
+     * Validates the given authentication key against the stored one.
      *
      * @param string $authKey Auth key to be validated.
      *

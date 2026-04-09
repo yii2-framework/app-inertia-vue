@@ -14,7 +14,7 @@ use yii\db\Migration;
  * @author Wilmer Arambula <terabytesoftw@gmail.com>
  * @since 0.1
  */
-class M260403000000CreateAdminUser extends Migration
+final class M260403000000CreateAdminUser extends Migration
 {
     public function safeDown(): bool
     {
