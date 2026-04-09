@@ -1,15 +1,21 @@
 {
-  "tabWidth": 2,
-  "useTabs": false,
-  "singleQuote": false,
-  "trailingComma": "all",
-  "printWidth": 120,
-  "overrides": [
-    {
-      "files": "*.md",
-      "options": {
-        "tabWidth": 2
-      }
-    }
-  ]
+    "tabWidth": 4,
+    "useTabs": false,
+    "singleQuote": false,
+    "trailingComma": "all",
+    "printWidth": 120,
+    "overrides": [
+        {
+            "files": ["*.js", "*.jsx", "*.ts", "*.tsx", "*.vue", "*.css", "*.scss", "*.html"],
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": "*.md",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
