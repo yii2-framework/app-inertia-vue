@@ -50,16 +50,9 @@ const fieldError = (field) => {
   <Head title="Contact us" />
 
   <!-- Success state -->
-  <div
-    v-if="page.props.flash?.success"
-    class="grow flex items-center justify-center text-center"
-  >
+  <div v-if="page.props.flash?.success" class="grow flex items-center justify-center text-center">
     <div class="mx-auto max-w-sm sm:max-w-md">
-      <h1
-        class="font-display text-3xl font-semibold mb-4 text-gray-900 dark:text-white"
-      >
-        Message sent
-      </h1>
+      <h1 class="font-display text-3xl font-semibold mb-4 text-gray-900 dark:text-white">Message sent</h1>
       <Link
         href="/site/contact"
         class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
@@ -79,22 +72,12 @@ const fieldError = (field) => {
         <div class="hidden md:flex md:w-1/3 login-brand-panel text-white">
           <div class="flex flex-col justify-between p-6 lg:p-8 w-full">
             <div>
-              <img
-                src="/images/yii3_full_white_for_dark.svg"
-                alt="Yii Framework"
-                class="mb-6"
-                height="40"
-              />
+              <img src="/images/yii3_full_white_for_dark.svg" alt="Yii Framework" class="mb-6" height="40" />
             </div>
             <div>
-              <h2
-                class="font-display font-bold mb-3 text-[1.75rem] leading-tight"
-              >
-                Get In<br />Touch
-              </h2>
+              <h2 class="font-display font-bold mb-3 text-[1.75rem] leading-tight">Get In<br />Touch</h2>
               <p class="opacity-75 text-[0.9rem]">
-                Have a question or business inquiry? We would love to hear from
-                you.
+                Have a question or business inquiry? We would love to hear from you.
               </p>
             </div>
           </div>
@@ -104,9 +87,7 @@ const fieldError = (field) => {
         <div class="w-full md:w-2/3">
           <div class="p-6 lg:p-8">
             <div class="text-center mb-6">
-              <h1 class="text-2xl font-bold mb-1 text-gray-900 dark:text-white">
-                Contact us
-              </h1>
+              <h1 class="text-2xl font-bold mb-1 text-gray-900 dark:text-white">Contact us</h1>
               <p class="text-sm text-gray-500 dark:text-gray-400">
                 Fill out the form below and we will get back to you
               </p>
@@ -115,9 +96,7 @@ const fieldError = (field) => {
             <form @submit.prevent="submit">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label
-                    for="contact-name"
-                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                  <label for="contact-name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                     >Your Name</label
                   >
                   <div
@@ -128,9 +107,7 @@ const fieldError = (field) => {
                         : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                     ]"
                   >
-                    <span
-                      class="flex items-center justify-center pl-3 pr-2 text-gray-400"
-                      aria-hidden="true"
+                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
                       >&#128100;</span
                     >
                     <input
@@ -142,18 +119,13 @@ const fieldError = (field) => {
                       autofocus
                     />
                   </div>
-                  <p
-                    v-if="fieldError('name')"
-                    class="text-red-600 dark:text-red-400 text-sm mt-1"
-                  >
+                  <p v-if="fieldError('name')" class="text-red-600 dark:text-red-400 text-sm mt-1">
                     {{ fieldError("name") }}
                   </p>
                 </div>
 
                 <div>
-                  <label
-                    for="contact-email"
-                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                  <label for="contact-email" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                     >Your Email</label
                   >
                   <div
@@ -164,9 +136,7 @@ const fieldError = (field) => {
                         : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                     ]"
                   >
-                    <span
-                      class="flex items-center justify-center pl-3 pr-2 text-gray-400"
-                      aria-hidden="true"
+                    <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
                       >&#9993;</span
                     >
                     <input
@@ -177,19 +147,14 @@ const fieldError = (field) => {
                       placeholder="email@example.com"
                     />
                   </div>
-                  <p
-                    v-if="fieldError('email')"
-                    class="text-red-600 dark:text-red-400 text-sm mt-1"
-                  >
+                  <p v-if="fieldError('email')" class="text-red-600 dark:text-red-400 text-sm mt-1">
                     {{ fieldError("email") }}
                   </p>
                 </div>
               </div>
 
               <div class="mb-4">
-                <label
-                  for="contact-phone"
-                  class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                <label for="contact-phone" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                   >Phone</label
                 >
                 <div
@@ -200,9 +165,7 @@ const fieldError = (field) => {
                       : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                   ]"
                 >
-                  <span
-                    class="flex items-center justify-center pl-3 pr-2 text-gray-400"
-                    aria-hidden="true"
+                  <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
                     >&#128222;</span
                   >
                   <input
@@ -214,18 +177,13 @@ const fieldError = (field) => {
                     @input="maskPhone"
                   />
                 </div>
-                <p
-                  v-if="fieldError('phone')"
-                  class="text-red-600 dark:text-red-400 text-sm mt-1"
-                >
+                <p v-if="fieldError('phone')" class="text-red-600 dark:text-red-400 text-sm mt-1">
                   {{ fieldError("phone") }}
                 </p>
               </div>
 
               <div class="mb-4">
-                <label
-                  for="contact-subject"
-                  class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                <label for="contact-subject" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                   >Subject</label
                 >
                 <div
@@ -236,9 +194,7 @@ const fieldError = (field) => {
                       : 'border-gray-300 dark:border-gray-600 focus-within:border-primary-500 focus-within:ring-primary-500/25',
                   ]"
                 >
-                  <span
-                    class="flex items-center justify-center pl-3 pr-2 text-gray-400"
-                    aria-hidden="true"
+                  <span class="flex items-center justify-center pl-3 pr-2 text-gray-400" aria-hidden="true"
                     >&#128172;</span
                   >
                   <input
@@ -249,18 +205,13 @@ const fieldError = (field) => {
                     placeholder="Subject"
                   />
                 </div>
-                <p
-                  v-if="fieldError('subject')"
-                  class="text-red-600 dark:text-red-400 text-sm mt-1"
-                >
+                <p v-if="fieldError('subject')" class="text-red-600 dark:text-red-400 text-sm mt-1">
                   {{ fieldError("subject") }}
                 </p>
               </div>
 
               <div class="mb-4">
-                <label
-                  for="contact-body"
-                  class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
+                <label for="contact-body" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"
                   >Message</label
                 >
                 <textarea
@@ -274,10 +225,7 @@ const fieldError = (field) => {
                   ]"
                   placeholder="Your message..."
                 />
-                <p
-                  v-if="fieldError('body')"
-                  class="text-red-600 dark:text-red-400 text-sm mt-1"
-                >
+                <p v-if="fieldError('body')" class="text-red-600 dark:text-red-400 text-sm mt-1">
                   {{ fieldError("body") }}
                 </p>
               </div>
@@ -291,17 +239,12 @@ const fieldError = (field) => {
                 <button
                   type="submit"
                   class="login-btn text-white px-6 py-2.5 rounded-lg cursor-pointer"
-                  :disabled="
-                    form.processing || !form['ContactForm[turnstileToken]']
-                  "
+                  :disabled="form.processing || !form['ContactForm[turnstileToken]']"
                 >
                   Submit
                 </button>
               </div>
-              <p
-                v-if="fieldError('turnstileToken')"
-                class="text-red-600 dark:text-red-400 text-sm mt-1"
-              >
+              <p v-if="fieldError('turnstileToken')" class="text-red-600 dark:text-red-400 text-sm mt-1">
                 {{ fieldError("turnstileToken") }}
               </p>
             </form>

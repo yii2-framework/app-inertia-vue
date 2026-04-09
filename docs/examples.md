@@ -20,17 +20,15 @@ Create `resources/js/Pages/Dashboard.vue`:
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
-    stats: { type: Object, default: () => ({}) },
+  stats: { type: Object, default: () => ({}) },
 });
 </script>
 
 <template>
-    <Head title="Dashboard" />
-    <div class="max-w-4xl mx-auto py-8">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-            Dashboard
-        </h1>
-    </div>
+  <Head title="Dashboard" />
+  <div class="max-w-4xl mx-auto py-8">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+  </div>
 </template>
 ```
 
