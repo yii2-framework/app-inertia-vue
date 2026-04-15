@@ -16,3 +16,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - chore: add `.prettierrc.json`, sync linter configs with `app-inertia-react`, and apply Prettier formatting.
 - chore: migrate package to `yii2-extensions` organization and raise minimum PHP requirement to `8.3`.
 - fix: wire `yii\\composer\\Installer::postCreateProject`/`setPermission` in `composer.json` so `yii2-composer` provisions `runtime/` and `public/assets/` during `create-project`.
+- fix: drop `/runtime export-ignore` from `.gitattributes` so the dist tarball ships `runtime/.gitignore` and the directory exists after `composer create-project`.
