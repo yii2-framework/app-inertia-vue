@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-    <strong>Skeleton <a href="https://github.com/yiisoft/yii2">Yii2</a> application with Inertia.js + Vue 3 integration</strong><br>
+    <strong>Skeleton <a href="https://github.com/yiisoft/yii2/tree/22.0">Yii2</a> application with Inertia.js + Vue 3 integration</strong><br>
     <em>Server-driven SPA with Tailwind CSS v4, Flowbite, dark mode, Cloudflare Turnstile, and Codeception tests</em>
 </p>
 
@@ -51,7 +51,20 @@ Use the **"Use this template"** button on GitHub to create your own repository f
 ## Quick start
 
 ```bash
+# create a new Yii2 application using the Inertia.js + Vue 3 template
 composer create-project --prefer-dist yii2-extensions/app-inertia-vue:^0.1@dev app-vue
+
+# navigate to the application directory
+cd app-vue
+
+# run database migrations
+./yii migrate/up
+
+# install JavaScript dependencies and build assets
+npm run build
+
+# start the development server
+./yii serve
 ```
 
 ## Docker
