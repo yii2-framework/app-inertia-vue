@@ -29,7 +29,6 @@
         "codeception/module-phpbrowser": "^4.0",
         "codeception/module-yii2": "^2.0",
         "codeception/verify": "^3.4",
-        "infection/infection": "^0.32",
         "maglnet/composer-require-checker": "^4.17",
         "php-forge/coding-standard": "^0.1",
         "phpstan/extension-installer": "^1.4",
