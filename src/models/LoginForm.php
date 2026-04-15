@@ -38,7 +38,7 @@ class LoginForm extends Model
     private User|null $user = null;
 
     /**
-     * Finds user by {@see username}.
+     * Finds user by {@see self::$username}.
      *
      * @return User|null User `object`, or `null` if not found.
      */
