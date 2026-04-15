@@ -49,14 +49,20 @@
         "branch-alias": {
             "dev-main": "0.1.x-dev"
         },
-        "executable": [
-            "yii"
-        ],
-        "writable": [
-            "runtime",
-            "public/assets"
-        ],
-        "yii\\composer\\Installer::postCreateProject": ""
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "public/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+        "yii\\composer\\Installer::postInstall": {
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        }
     },
     "config": {
         "sort-packages": true,
@@ -69,6 +75,13 @@
         }
     },
     "scripts": {
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall"
+        ],
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
         "check-dependencies": "./vendor/bin/composer-require-checker check",
         "ecs": "./vendor/bin/ecs --fix",
         "rector": "./vendor/bin/rector process",
