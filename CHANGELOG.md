@@ -18,3 +18,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - fix: wire `yii\\composer\\Installer::postCreateProject`/`setPermission` in `composer.json` so `yii2-composer` provisions `runtime/` and `public/assets/` during `create-project`.
 - fix: drop `/runtime export-ignore` from `.gitattributes` so the dist tarball ships `runtime/.gitignore` and the directory exists after `composer create-project`.
 - fix: update Yii2 link in `README.md` and enhance quick start instructions.
+- chore: skip `yiisoft/yii2` in foxy via `config.foxy.enable-packages` to avoid pulling legacy `jquery`, `jquery-pjax`, `inputmask`, `punycode`, and `yii2-pjax` assets into the merged `package.json`.
