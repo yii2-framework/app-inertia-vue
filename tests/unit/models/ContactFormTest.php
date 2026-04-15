@@ -52,7 +52,7 @@ final class ContactFormTest extends \Codeception\Test\Unit
 
         $this->tester->seeEmailIsSent();
 
-        /** @phpstan-var Message $emailMessage */
+        /** @var Message $emailMessage */
         $emailMessage = $this->tester->grabLastSentEmail();
 
         verify($emailMessage)

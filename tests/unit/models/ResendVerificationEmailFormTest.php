@@ -24,7 +24,7 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
     protected UnitTester|null $tester = null;
 
     /**
-     * @phpstan-return array{user: array{class: string, dataFile: string}}
+     * @return array{user: array{class: string, dataFile: string}}
      */
     public function _fixtures(): array
     {
@@ -141,7 +141,7 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
 
         $this->tester?->seeEmailIsSent();
 
-        /** @phpstan-var MessageInterface|null $mail */
+        /** @var MessageInterface|null $mail */
         $mail = $this->tester?->grabLastSentEmail();
 
         verify($mail)
@@ -177,7 +177,7 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             "Failed asserting that fixture user 'test.test' has a verification token.",
         );
 
-        /** @phpstan-var \yii\symfonymailer\Message $mail */
+        /** @var \yii\symfonymailer\Message $mail */
         verify($mail->getSymfonyEmail()->getTextBody())
             ->stringContainsString(
                 $user->verification_token,

@@ -19,12 +19,8 @@ use yii\web\{HttpException, Response};
  */
 final class SiteController extends Controller
 {
-    public function __construct(
-        $id,
-        $module,
-        private readonly MailerInterface $mailer,
-        $config = [],
-    ) {
+    public function __construct($id, $module, private readonly MailerInterface $mailer, $config = [])
+    {
         parent::__construct($id, $module, $config);
     }
 
@@ -49,7 +45,7 @@ final class SiteController extends Controller
     {
         $model = new ContactForm();
 
-        /** @phpstan-var array<string, mixed> $post */
+        /** @var array<string, mixed> $post */
         $post = $this->request->post();
 
         if ($model->load($post)) {

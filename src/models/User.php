@@ -33,22 +33,21 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * User is active and allowed to log in.
      */
-    public const STATUS_ACTIVE = 10;
+    public const int STATUS_ACTIVE = 10;
     /**
      * User is deleted and not allowed to log in.
      */
-    public const STATUS_DELETED = 0;
+    public const int STATUS_DELETED = 0;
     /**
      * User is inactive and not allowed to log in.
      */
-    public const STATUS_INACTIVE = 9;
+    public const int STATUS_INACTIVE = 9;
 
     /**
      * Returns the behaviors attached to this ActiveRecord.
      *
-     * @return array List of behavior configurations indexed by behavior name or class.
-     *
-     * @phpstan-return array<array{class: class-string}|class-string>
+     * @return array<array{class: class-string}|class-string> List of behavior configurations indexed by behavior name
+     * or class.
      */
     public function behaviors(): array
     {
@@ -229,10 +228,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Returns the validation rules for the model attributes.
-     *
-     * @return array Validation rules for the model properties.
-     *
-     * @phpstan-return array<array<mixed>>
      */
     public function rules(): array
     {

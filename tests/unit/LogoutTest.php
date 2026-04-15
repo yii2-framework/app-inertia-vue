@@ -19,7 +19,7 @@ use yii\web\{IdentityInterface, Response};
 final class LogoutTest extends \Codeception\Test\Unit
 {
     /**
-     * @phpstan-return array{user: array{class: string, dataFile: string}}
+     * @return array{user: array{class: string, dataFile: string}}
      */
     public function _fixtures(): array
     {

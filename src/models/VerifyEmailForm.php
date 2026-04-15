@@ -24,11 +24,9 @@ final class VerifyEmailForm extends Model
      * Creates a form model with given token.
      *
      * @param string $token Verification token.
-     * @param array $config name-value pairs that will be used to initialize the object properties.
+     * @param array<string, mixed> $config name-value pairs that will be used to initialize the object properties.
      *
      * @throws InvalidArgumentException if token is empty or not valid.
-     *
-     * @phpstan-param array<string, mixed> $config
      */
     public function __construct(string $token, array $config = [])
     {

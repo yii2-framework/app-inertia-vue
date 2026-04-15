@@ -30,11 +30,9 @@ final class ResetPasswordForm extends Model
      * Creates a form model given a token.
      *
      * @param string $token the password reset token.
-     * @param array $config name-value pairs that will be used to initialize the object properties.
+     * @param array<string, mixed> $config name-value pairs that will be used to initialize the object properties.
      *
      * @throws InvalidArgumentException if token is empty or not valid.
-     *
-     * @phpstan-param array<string, mixed> $config
      */
     public function __construct(string $token, array $config = [])
     {
@@ -73,10 +71,6 @@ final class ResetPasswordForm extends Model
 
     /**
      * Returns the validation rules for the form attributes.
-     *
-     * @return array Validation rules for the model properties.
-     *
-     * @phpstan-return array<array<mixed>>
      */
     public function rules(): array
     {
