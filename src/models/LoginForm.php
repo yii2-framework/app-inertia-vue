@@ -38,7 +38,7 @@ class LoginForm extends Model
     private User|null $user = null;
 
     /**
-     * Finds user by [[username]].
+     * Finds user by {@see self::$username}.
      *
      * @return User|null User `object`, or `null` if not found.
      */
@@ -73,10 +73,6 @@ class LoginForm extends Model
 
     /**
      * Returns the validation rules for the form attributes.
-     *
-     * @return array Validation rules for the model properties.
-     *
-     * @phpstan-return array<array<mixed>>
      */
     public function rules(): array
     {

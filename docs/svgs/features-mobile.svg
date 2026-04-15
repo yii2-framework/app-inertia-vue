@@ -1,74 +1,37 @@
-<svg fill="none" viewBox="0 0 560 560" width="100%" height="560" xmlns="http://www.w3.org/2000/svg">
-    <foreignObject width="100%" height="100%">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <style>
-                .container {
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    gap: 16px;
-                    padding: 16px;
-                }
-                .alert-box {
-                    border-left: 4px solid #1f883d;
-                    padding: 12px;
-                    margin-bottom: 12px;
-                    border-radius: 6px;
-                    background: rgba(31, 136, 61, 0.1);
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-                .alert-title {
-                    margin: 0 0 8px 0;
-                    font-weight: 600;
-                    font-size: 14px;
-                }
-                .alert-content {
-                    margin: 0;
-                    line-height: 1.4;
-                    font-size: 12px;
-                }
+<!-- Mobile version - single column -->
+<svg viewBox="0 0 600 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .box-bg { fill: #e9f7ef; stroke: #b7e4c7; stroke-width: 1; }
+        .title { font-weight: 700; font-size: 14px; fill: #1a202c; }
+        .content { font-size: 11px; fill: #4a5568; }
+    </style>
 
-                /* Light mode */
-                @media (prefers-color-scheme: light) {
-                    .alert-title { color: #000000; }
-                    .alert-content { color: #333333; }
-                    .alert-box { background: rgba(31, 136, 61, 0.1); }
-                }
+    <g>
+        <rect class="box-bg" x="16" y="16" width="568" height="75" rx="6"/>
+        <rect x="16" y="16" width="4" height="75" fill="#42b883"/>
+        <text class="title" x="32" y="44">Authentication</text>
+        <text class="content" x="32" y="70">Login &#8226; Signup &#8226; Email verification &#8226; Password reset &#8226; User listing</text>
+    </g>
 
-                /* Dark mode */
-                @media (prefers-color-scheme: dark) {
-                    .alert-title { color: #ffffff; }
-                    .alert-content { color: #ffffff; }
-                    .alert-box { background: rgba(31, 136, 61, 0.2); }
-                }
-            </style>
-            <div class="container">
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Authentication</strong></p>
-                    <p class="alert-content">Login • Signup • Email verification • Password reset • User listing</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Cloudflare Turnstile</strong></p>
-                    <p class="alert-content">CAPTCHA on contact form • Test keys included • Auto dark theme</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Inertia.js + Vue 3</strong></p>
-                    <p class="alert-content">SPA navigation • Composition API • Script setup • No full page reloads</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>PHP 8.3+ / Vite</strong></p>
-                    <p class="alert-content">Typed properties • Strict types • HMR • Asset bundling via Vite</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Quality Tools</strong></p>
-                    <p class="alert-content">PHPStan Level Max • Super-Linter • ECS • Codeception tests</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Tailwind CSS v4 + Flowbite</strong></p>
-                    <p class="alert-content">Utility-first CSS • Flowbite Vue components • Dark mode toggle</p>
-                </div>
-            </div>
-        </div>
-    </foreignObject>
+    <g>
+        <rect class="box-bg" x="16" y="107" width="568" height="75" rx="6"/>
+        <rect x="16" y="107" width="4" height="75" fill="#42b883"/>
+        <text class="title" x="32" y="135">Cloudflare Turnstile</text>
+        <text class="content" x="32" y="161">CAPTCHA on contact form &#8226; Test keys included &#8226; Auto dark theme</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="16" y="198" width="568" height="75" rx="6"/>
+        <rect x="16" y="198" width="4" height="75" fill="#42b883"/>
+        <text class="title" x="32" y="226">Inertia.js + Vue 3</text>
+        <text class="content" x="32" y="252">SPA navigation &#8226; Composition API &#8226; Script setup &#8226; No full page reloads</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="16" y="289" width="568" height="75" rx="6"/>
+        <rect x="16" y="289" width="4" height="75" fill="#42b883"/>
+        <text class="title" x="32" y="317">Tailwind CSS v4 + Flowbite</text>
+        <text class="content" x="32" y="343">Utility-first CSS &#8226; Flowbite Vue components &#8226; Dark mode toggle</text>
+    </g>
 </svg>

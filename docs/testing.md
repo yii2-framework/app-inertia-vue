@@ -1,13 +1,13 @@
 # Testing
 
-This package provides a consistent set of [Composer](https://getcomposer.org/) scripts for local validation.
+This template provides a consistent set of [Composer](https://getcomposer.org/) scripts for local validation.
 
 Tool references:
 
+- [Codeception](https://codeception.com/) for functional and unit tests.
 - [Composer Require Checker](https://github.com/maglnet/ComposerRequireChecker) for dependency definition checks.
 - [Easy Coding Standard (ECS)](https://github.com/easy-coding-standard/easy-coding-standard) for coding standards.
 - [PHPStan](https://phpstan.org/) for static analysis.
-- [PHPUnit](https://phpunit.de/) for unit tests.
 - [Rector](https://github.com/rectorphp/rector) for automated refactoring.
 
 ## Automated refactoring (Rector)
@@ -34,20 +34,6 @@ Verify that runtime dependencies are correctly declared in `composer.json`.
 composer check-dependencies
 ```
 
-## Mutation testing (Infection)
-
-Run mutation testing.
-
-```bash
-composer mutation
-```
-
-Run mutation testing with static analysis enabled.
-
-```bash
-composer mutation-static
-```
-
 ## Static analysis (PHPStan)
 
 Run static analysis.
@@ -56,9 +42,9 @@ Run static analysis.
 composer static
 ```
 
-## Unit tests (PHPUnit)
+## Unit and functional tests (Codeception)
 
-Run the full test suite.
+Run the full Codeception suite under the built-in PHP server.
 
 ```bash
 composer tests
@@ -68,7 +54,7 @@ composer tests
 
 Composer scripts support forwarding additional arguments using `--`.
 
-Run PHPUnit with code coverage report generation.
+Run Codeception with a coverage HTML report.
 
 ```bash
 composer tests -- --coverage-html code_coverage

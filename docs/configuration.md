@@ -1,5 +1,11 @@
 # Configuration reference
 
+## Overview
+
+This template centralizes runtime configuration in `config/params.php` (application parameters), `config/web.php` and
+`config/console.php` (component wiring), `config/db.php` (database DSN), and environment variables consumed by
+`public/index.php`. The sections below describe each surface and how to override its defaults.
+
 ## Environment variables
 
 Defined in `public/index.php`:

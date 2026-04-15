@@ -2,17 +2,17 @@
 
 ## System requirements
 
-- [`PHP`](https://www.php.net/downloads) `8.3` or higher.
-- [`Composer`](https://getcomposer.org/download/) for dependency management.
-- [`Node.js`](https://nodejs.org/) `22` or higher with npm.
-- [`Yii2`](https://github.com/yiisoft/yii2) `22.x`.
+- [PHP](https://www.php.net/downloads) `8.3` or higher.
+- [Composer](https://getcomposer.org/download/) for dependency management.
+- [Node.js](https://nodejs.org/) `22` or higher with npm.
+- [Yii2](https://github.com/yiisoft/yii2) `22.x`.
 
 ## Installation
 
 ### Clone the repository
 
 ```bash
-git clone https://github.com/yii2-framework/app-inertia-vue.git
+git clone https://github.com/yii2-extensions/app-inertia-vue.git
 cd app-inertia-vue
 ```
 

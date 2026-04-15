@@ -22,7 +22,7 @@ use yii\web\{BadRequestHttpException, Response};
 final class UserControllerTest extends \Codeception\Test\Unit
 {
     /**
-     * @phpstan-return array{user: array{class: string, dataFile: string}}
+     * @return array{user: array{class: string, dataFile: string}}
      */
     public function _fixtures(): array
     {

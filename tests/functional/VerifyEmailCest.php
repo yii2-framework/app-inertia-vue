@@ -22,7 +22,7 @@ use yii\helpers\Url;
 final class VerifyEmailCest
 {
     /**
-     * @phpstan-return array{user: array{class: string, dataFile: string}}
+     * @return array{user: array{class: string, dataFile: string}}
      */
     public function _fixtures(): array
     {

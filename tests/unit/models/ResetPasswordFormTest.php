@@ -21,7 +21,7 @@ final class ResetPasswordFormTest extends \Codeception\Test\Unit
     protected UnitTester|null $tester = null;
 
     /**
-     * @phpstan-return array{user: array{class: string, dataFile: string}}
+     * @return array{user: array{class: string, dataFile: string}}
      */
     public function _fixtures(): array
     {

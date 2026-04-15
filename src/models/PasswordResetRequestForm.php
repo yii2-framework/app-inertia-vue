@@ -24,10 +24,6 @@ final class PasswordResetRequestForm extends Model
 
     /**
      * Returns the validation rules for the form attributes.
-     *
-     * @return array Validation rules for the model properties.
-     *
-     * @phpstan-return array<array<mixed>>
      */
     public function rules(): array
     {

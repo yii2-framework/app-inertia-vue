@@ -21,7 +21,7 @@ final class VerifyEmailFormTest extends \Codeception\Test\Unit
     protected UnitTester|null $tester = null;
 
     /**
-     * @phpstan-return array{user: array{class: string, dataFile: string}}
+     * @return array{user: array{class: string, dataFile: string}}
      */
     public function _fixtures(): array
     {
@@ -47,7 +47,7 @@ final class VerifyEmailFormTest extends \Codeception\Test\Unit
                 "Failed asserting that fixture user 'test2.test' has a verification token.",
             );
 
-        /** @phpstan-var string $token */
+        /** @var string $token */
         $token = $user->verification_token ?? '';
 
         $this->tester?->expectThrowable(

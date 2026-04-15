@@ -16,10 +16,6 @@ final class UserSearch extends User
 {
     /**
      * Returns the validation rules for the search attributes.
-     *
-     * @return array Validation rules for the model properties.
-     *
-     * @phpstan-return array<array<mixed>>
      */
     public function rules(): array
     {
@@ -44,11 +40,9 @@ final class UserSearch extends User
     /**
      * Creates data provider instance with search query applied.
      *
-     * @param array $params Search parameters to filter the user data.
+     * @param array<string, mixed> $params Search parameters to filter the user data.
      *
      * @return ActiveDataProvider Data provider containing the filtered user data.
-     *
-     * @phpstan-param array<string, mixed> $params
      */
     public function search(array $params): ActiveDataProvider
     {

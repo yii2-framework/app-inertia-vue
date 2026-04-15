@@ -51,9 +51,7 @@ class ContactForm extends Model
     /**
      * Returns the attribute labels for form fields.
      *
-     * @return array Attribute labels for the model properties.
-     *
-     * @phpstan-return array<string, string>
+     * @return array<string, string> Attribute labels for the model properties.
      */
     public function attributeLabels(): array
     {
@@ -91,10 +89,6 @@ class ContactForm extends Model
 
     /**
      * Returns the validation rules for the form attributes.
-     *
-     * @return array Validation rules for the model properties.
-     *
-     * @phpstan-return array<array<mixed>>
      */
     public function rules(): array
     {

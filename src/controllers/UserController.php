@@ -30,12 +30,8 @@ use yii\web\{BadRequestHttpException, Response};
  */
 final class UserController extends Controller
 {
-    public function __construct(
-        $id,
-        $module,
-        private readonly MailerInterface $mailer,
-        $config = [],
-    ) {
+    public function __construct($id, $module, private readonly MailerInterface $mailer, $config = [])
+    {
         parent::__construct($id, $module, $config);
     }
 
@@ -48,7 +44,7 @@ final class UserController extends Controller
     {
         $searchModel = new UserSearch();
 
-        /** @phpstan-var array<string, mixed> $queryParams */
+        /** @var array<string, mixed> $queryParams */
         $queryParams = Yii::$app->request->queryParams;
 
         $dataProvider = $searchModel->search($queryParams);
@@ -101,7 +97,7 @@ final class UserController extends Controller
     {
         $model = new LoginForm();
 
-        /** @phpstan-var array<string, mixed> $post */
+        /** @var array<string, mixed> $post */
         $post = $this->request->post();
 
         if ($model->load($post) && $model->login()) {
@@ -138,7 +134,7 @@ final class UserController extends Controller
     {
         $model = new PasswordResetRequestForm();
 
-        /** @phpstan-var array<string, mixed> $post */
+        /** @var array<string, mixed> $post */
         $post = $this->request->post();
 
         $params = Yii::$app->params;
@@ -182,7 +178,7 @@ final class UserController extends Controller
     {
         $model = new ResendVerificationEmailForm();
 
-        /** @phpstan-var array<string, mixed> $post */
+        /** @var array<string, mixed> $post */
         $post = $this->request->post();
 
         $params = Yii::$app->params;
@@ -235,7 +231,7 @@ final class UserController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        /** @phpstan-var array<string, mixed> $post */
+        /** @var array<string, mixed> $post */
         $post = $this->request->post();
 
         if ($model->load($post)) {
@@ -279,7 +275,7 @@ final class UserController extends Controller
     {
         $model = new SignupForm();
 
-        /** @phpstan-var array<string, mixed> $post */
+        /** @var array<string, mixed> $post */
         $post = $this->request->post();
 
         if ($model->load($post)) {

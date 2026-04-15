@@ -14,3 +14,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - chore: upgrade Vite to `v8` and `@vitejs/plugin-vue` to `v6` for compatibility.
 - chore: add contact-submitted success screen with card layout and update screenshots.
 - chore: add `.prettierrc.json`, sync linter configs with `app-inertia-react`, and apply Prettier formatting.
+- chore: migrate package to `yii2-extensions` organization and raise minimum PHP requirement to `8.3`.

@@ -1,5 +1,5 @@
 {
-    "name": "yii2-framework/app-inertia-vue",
+    "name": "yii2-extensions/app-inertia-vue",
     "type": "project",
     "description": "Yii2 application template with Inertia.js and Vue 3",
     "keywords": [
@@ -15,9 +15,9 @@
     "require": {
         "php": ">=8.3",
         "php-forge/foxy": "^0.2",
-        "yii2-framework/inertia": "^0.1@dev",
-        "yii2-framework/inertia-vue": "^0.1@dev",
-        "yii2-framework/yii2": "^0.1@dev",
+        "yii2-extensions/inertia": "^0.1",
+        "yii2-extensions/inertia-vue": "^0.1",
+        "yiisoft/yii2": "^22.0",
         "yiisoft/yii2-symfonymailer": "^4.0"
     },
     "require-dev": {
@@ -27,9 +27,8 @@
         "codeception/module-asserts": "^3.3",
         "codeception/module-filesystem": "^3.0",
         "codeception/module-phpbrowser": "^4.0",
-        "codeception/module-yii2": "^1.1",
+        "codeception/module-yii2": "^2.0",
         "codeception/verify": "^3.4",
-        "infection/infection": "^0.32",
         "maglnet/composer-require-checker": "^4.17",
         "php-forge/coding-standard": "^0.1",
         "phpstan/extension-installer": "^1.4",
