@@ -157,6 +157,28 @@ final class UserControllerTest extends \Codeception\Test\Unit
         );
     }
 
+    public function testActionRequestPasswordResetPostInvalidEmailFormat(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/user/request-password-reset';
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        Yii::$app->request->setBodyParams([
+            'PasswordResetRequestForm' => ['email' => 'not-an-email'],
+        ]);
+
+        $controller = new UserController('user', Yii::$app, Yii::$app->mailer);
+
+        Yii::$app->controller = $controller;
+        $response = $controller->actionRequestPasswordReset();
+
+        self::assertInstanceOf(
+            Response::class,
+            $response,
+            "Expected 'actionRequestPasswordReset' to redirect with errors flash on invalid email format.",
+        );
+    }
+
     public function testActionRequestPasswordResetPostMailerFailure(): void
     {
         $_SERVER['REQUEST_URI'] = '/user/request-password-reset';
@@ -185,7 +207,7 @@ final class UserControllerTest extends \Codeception\Test\Unit
         self::assertInstanceOf(
             Response::class,
             $response,
-            "Expected 'actionRequestPasswordReset' to redirect with error flash when mailer fails.",
+            "Expected 'actionRequestPasswordReset' to redirect home with generic success flash even when mailer fails.",
         );
     }
 
@@ -211,7 +233,7 @@ final class UserControllerTest extends \Codeception\Test\Unit
         );
     }
 
-    public function testActionRequestPasswordResetPostValidationErrors(): void
+    public function testActionRequestPasswordResetPostUnknownEmailReturnsGenericSuccess(): void
     {
         $_SERVER['REQUEST_URI'] = '/user/request-password-reset';
         $_SERVER['SERVER_NAME'] = 'localhost';
@@ -229,7 +251,7 @@ final class UserControllerTest extends \Codeception\Test\Unit
         self::assertInstanceOf(
             Response::class,
             $response,
-            "Expected 'actionRequestPasswordReset' to redirect with errors flash on validation failure.",
+            "Expected 'actionRequestPasswordReset' to redirect home with generic success flash for an unknown email.",
         );
     }
 
@@ -248,6 +270,50 @@ final class UserControllerTest extends \Codeception\Test\Unit
             Response::class,
             $response,
             "Expected 'actionResendVerificationEmail' to return an inertia Response for GET request.",
+        );
+    }
+
+    public function testActionResendVerificationEmailPostActiveUserReturnsGenericSuccess(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/user/resend-verification-email';
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        Yii::$app->request->setBodyParams([
+            'ResendVerificationEmailForm' => ['email' => 'admin@example.com'],
+        ]);
+
+        $controller = new UserController('user', Yii::$app, Yii::$app->mailer);
+
+        Yii::$app->controller = $controller;
+        $response = $controller->actionResendVerificationEmail();
+
+        self::assertInstanceOf(
+            Response::class,
+            $response,
+            "Expected 'actionResendVerificationEmail' to redirect home with generic success flash for an already-active account.",
+        );
+    }
+
+    public function testActionResendVerificationEmailPostInvalidEmailFormat(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/user/resend-verification-email';
+        $_SERVER['SERVER_NAME'] = 'localhost';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
+        Yii::$app->request->setBodyParams([
+            'ResendVerificationEmailForm' => ['email' => 'not-an-email'],
+        ]);
+
+        $controller = new UserController('user', Yii::$app, Yii::$app->mailer);
+
+        Yii::$app->controller = $controller;
+        $response = $controller->actionResendVerificationEmail();
+
+        self::assertInstanceOf(
+            Response::class,
+            $response,
+            "Expected 'actionResendVerificationEmail' to redirect with errors flash on invalid email format.",
         );
     }
 
@@ -279,7 +345,7 @@ final class UserControllerTest extends \Codeception\Test\Unit
         self::assertInstanceOf(
             Response::class,
             $response,
-            "Expected 'actionResendVerificationEmail' to redirect with error flash when mailer fails.",
+            "Expected 'actionResendVerificationEmail' to redirect home with generic success flash even when mailer fails.",
         );
     }
 
@@ -302,29 +368,6 @@ final class UserControllerTest extends \Codeception\Test\Unit
             Response::class,
             $response,
             "Expected 'actionResendVerificationEmail' to redirect home on successful email send.",
-        );
-    }
-
-    public function testActionResendVerificationEmailPostValidationErrors(): void
-    {
-        $_SERVER['REQUEST_URI'] = '/user/resend-verification-email';
-        $_SERVER['SERVER_NAME'] = 'localhost';
-        $_SERVER['REQUEST_METHOD'] = 'POST';
-
-        // admin@example.com has STATUS_ACTIVE, not STATUS_INACTIVE — 'exist' validator fails.
-        Yii::$app->request->setBodyParams([
-            'ResendVerificationEmailForm' => ['email' => 'admin@example.com'],
-        ]);
-
-        $controller = new UserController('user', Yii::$app, Yii::$app->mailer);
-
-        Yii::$app->controller = $controller;
-        $response = $controller->actionResendVerificationEmail();
-
-        self::assertInstanceOf(
-            Response::class,
-            $response,
-            "Expected 'actionResendVerificationEmail' to redirect with errors flash on validation failure.",
         );
     }
 

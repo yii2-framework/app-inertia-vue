@@ -23,3 +23,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - docs: document the validate-before-call contract on `ResetPasswordForm::resetPassword()`.
 - fix(security): replace user-disclosing validation message in `PasswordResetRequestForm` and `ResendVerificationEmailForm` to mitigate user enumeration.
 - fix: cache negative lookup in `LoginForm::getUser()` via a `userLoaded` flag to avoid a second `User::findByUsername()` DB query on repeated calls.
+- fix(security): harden `request-password-reset` and `resend-verification-email` flows against email enumeration by returning a generic success response regardless of account state.

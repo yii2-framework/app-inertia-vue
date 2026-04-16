@@ -58,6 +58,23 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             );
     }
 
+    public function testInvalidEmailFormatFailsValidation(): void
+    {
+        $model = new ResendVerificationEmailForm();
+
+        $model->attributes = ['email' => 'not-an-email'];
+
+        verify($model->validate())
+            ->false(
+                'Failed asserting that validation fails for an invalid email format.',
+            );
+        verify($model->getFirstError('email'))
+            ->equals(
+                'Email is not a valid email address.',
+                'Failed asserting that invalid email format surfaces the format error.',
+            );
+    }
+
     public function testResendToActiveUser(): void
     {
         $model = new ResendVerificationEmailForm();
@@ -65,17 +82,15 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
         $model->attributes = ['email' => 'test2.test@example.com'];
 
         verify($model->validate())
-            ->false(
-                'Failed asserting that validation fails for an already active user.',
-            );
-        verify($model->hasErrors())
             ->true(
-                'Failed asserting that validation errors are present.',
+                'Failed asserting that validation passes for an active user (enumeration-safe).',
             );
-        verify($model->getFirstError('email'))
-            ->equals(
-                'Unable to process the request for the provided email address.',
-                'Failed asserting that active user email is rejected by the inactive-only filter.',
+
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->false(
+                "Failed asserting that 'sendEmail' returns 'false' for an active user under the inactive-only filter.",
             );
     }
 
@@ -209,24 +224,22 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
         }
     }
 
-    public function testWrongEmailAddress(): void
+    public function testUnknownEmailAddressValidatesAndSendEmailReturnsFalse(): void
     {
         $model = new ResendVerificationEmailForm();
 
         $model->attributes = ['email' => 'aaa@bbb.cc'];
 
         verify($model->validate())
-            ->false(
-                'Failed asserting that validation fails for a non-existing email.',
-            );
-        verify($model->hasErrors())
             ->true(
-                'Failed asserting that validation errors are present.',
+                'Failed asserting that validation passes for an unknown email (enumeration-safe).',
             );
-        verify($model->getFirstError('email'))
-            ->equals(
-                'Unable to process the request for the provided email address.',
-                'Failed asserting that the error message matches for a non-existing email.',
+
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->false(
+                "Failed asserting that 'sendEmail' returns 'false' for an unknown email address.",
             );
     }
 }
