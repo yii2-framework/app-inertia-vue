@@ -52,9 +52,22 @@ final class ResetPasswordForm extends Model
     }
 
     /**
-     * Resets password.
+     * Resets the user password and invalidates the reset token.
      *
-     * @return bool Whether the password was reset successfully
+     * The caller MUST invoke {@see Model::validate()} before calling this method; `resetPassword()` does not validate
+     * internally. The standard Yii2 controller pattern applies.
+     *
+     * Usage example:
+     * ```php
+     * $model->load($post) && $model->validate() && $model->resetPassword();
+     * ```
+     *
+     * Bypassing validation skips the `required` and `min` constraints declared in {@see self::rules()} and may persist
+     * an invalid password.
+     *
+     * @return bool `true` on successful save; `false` when no user is bound to the token or the save fails.
+     *
+     * @see \app\controllers\UserController::actionResetPassword() for the canonical usage.
      */
     public function resetPassword(): bool
     {
