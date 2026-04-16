@@ -62,7 +62,7 @@ final class ResendVerificationEmailForm extends Model
         );
 
         if ($user === null) {
-            Yii::info("No inactive user found for email '{$this->email}'.", __METHOD__);
+            Yii::info('No inactive user found for submitted email.', __METHOD__);
 
             return false;
         }

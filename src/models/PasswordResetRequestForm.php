@@ -62,7 +62,7 @@ final class PasswordResetRequestForm extends Model
         );
 
         if ($user === null) {
-            Yii::info("No active user found for email '{$this->email}'.", __METHOD__);
+            Yii::info('No active user found for submitted email.', __METHOD__);
 
             return false;
         }

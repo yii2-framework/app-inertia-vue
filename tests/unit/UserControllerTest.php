@@ -177,6 +177,14 @@ final class UserControllerTest extends \Codeception\Test\Unit
             $response,
             "Expected 'actionRequestPasswordReset' to redirect with errors flash on invalid email format.",
         );
+        self::assertTrue(
+            Yii::$app->session->hasFlash('errors'),
+            "Expected 'errors' flash to be set on invalid email format.",
+        );
+        self::assertFalse(
+            Yii::$app->session->hasFlash('success'),
+            "Expected no 'success' flash on invalid email format.",
+        );
     }
 
     public function testActionRequestPasswordResetPostMailerFailure(): void
@@ -208,6 +216,14 @@ final class UserControllerTest extends \Codeception\Test\Unit
             Response::class,
             $response,
             "Expected 'actionRequestPasswordReset' to redirect home with generic success flash even when mailer fails.",
+        );
+        self::assertTrue(
+            Yii::$app->session->hasFlash('success'),
+            "Expected 'success' flash to be set even when mailer fails (enumeration-safe).",
+        );
+        self::assertFalse(
+            Yii::$app->session->hasFlash('errors'),
+            "Expected no 'errors' flash when mailer fails (enumeration-safe).",
         );
     }
 
@@ -253,6 +269,14 @@ final class UserControllerTest extends \Codeception\Test\Unit
             $response,
             "Expected 'actionRequestPasswordReset' to redirect home with generic success flash for an unknown email.",
         );
+        self::assertTrue(
+            Yii::$app->session->hasFlash('success'),
+            "Expected 'success' flash to be set for an unknown email (enumeration-safe).",
+        );
+        self::assertFalse(
+            Yii::$app->session->hasFlash('errors'),
+            "Expected no 'errors' flash for an unknown email (enumeration-safe).",
+        );
     }
 
     public function testActionResendVerificationEmailGet(): void
@@ -293,6 +317,14 @@ final class UserControllerTest extends \Codeception\Test\Unit
             $response,
             "Expected 'actionResendVerificationEmail' to redirect home with generic success flash for an already-active account.",
         );
+        self::assertTrue(
+            Yii::$app->session->hasFlash('success'),
+            "Expected 'success' flash to be set for an active user (enumeration-safe).",
+        );
+        self::assertFalse(
+            Yii::$app->session->hasFlash('errors'),
+            "Expected no 'errors' flash for an active user (enumeration-safe).",
+        );
     }
 
     public function testActionResendVerificationEmailPostInvalidEmailFormat(): void
@@ -314,6 +346,14 @@ final class UserControllerTest extends \Codeception\Test\Unit
             Response::class,
             $response,
             "Expected 'actionResendVerificationEmail' to redirect with errors flash on invalid email format.",
+        );
+        self::assertTrue(
+            Yii::$app->session->hasFlash('errors'),
+            "Expected 'errors' flash to be set on invalid email format.",
+        );
+        self::assertFalse(
+            Yii::$app->session->hasFlash('success'),
+            "Expected no 'success' flash on invalid email format.",
         );
     }
 
@@ -346,6 +386,14 @@ final class UserControllerTest extends \Codeception\Test\Unit
             Response::class,
             $response,
             "Expected 'actionResendVerificationEmail' to redirect home with generic success flash even when mailer fails.",
+        );
+        self::assertTrue(
+            Yii::$app->session->hasFlash('success'),
+            "Expected 'success' flash to be set even when mailer fails (enumeration-safe).",
+        );
+        self::assertFalse(
+            Yii::$app->session->hasFlash('errors'),
+            "Expected no 'errors' flash when mailer fails (enumeration-safe).",
         );
     }
 
