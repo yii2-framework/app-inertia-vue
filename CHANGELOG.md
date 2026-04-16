@@ -21,3 +21,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - chore: skip `yiisoft/yii2` in foxy via `config.foxy.enable-packages` to avoid pulling legacy `jquery`, `jquery-pjax`, `inputmask`, `punycode`, and `yii2-pjax` assets into the merged `package.json`.
 - docs: document the Vite HMR development workflow (`npm run dev` + `YII_ENV=dev ./yii serve`) in `README.md`.
 - docs: document the validate-before-call contract on `ResetPasswordForm::resetPassword()`.
+- fix(security): replace user-disclosing validation message in `PasswordResetRequestForm` and `ResendVerificationEmailForm` to mitigate user enumeration.

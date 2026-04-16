@@ -74,7 +74,7 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             );
         verify($model->getFirstError('email'))
             ->equals(
-                'There is no user with this email address.',
+                'Unable to process the request for the provided email address.',
                 'Failed asserting that active user email is rejected by the inactive-only filter.',
             );
     }
@@ -225,7 +225,7 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             );
         verify($model->getFirstError('email'))
             ->equals(
-                'There is no user with this email address.',
+                'Unable to process the request for the provided email address.',
                 'Failed asserting that the error message matches for a non-existing email.',
             );
     }

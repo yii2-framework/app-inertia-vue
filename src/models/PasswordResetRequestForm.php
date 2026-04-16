@@ -45,7 +45,7 @@ final class PasswordResetRequestForm extends Model
                 'exist',
                 'targetClass' => User::class,
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with this email address.',
+                'message' => 'Unable to process the request for the provided email address.',
             ],
         ];
     }
