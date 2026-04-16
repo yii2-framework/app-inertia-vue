@@ -40,13 +40,6 @@ final class ResendVerificationEmailForm extends Model
                 'email',
                 'email',
             ],
-            [
-                'email',
-                'exist',
-                'targetClass' => User::class,
-                'filter' => ['status' => User::STATUS_INACTIVE],
-                'message' => 'Unable to process the request for the provided email address.',
-            ],
         ];
     }
 
@@ -69,6 +62,8 @@ final class ResendVerificationEmailForm extends Model
         );
 
         if ($user === null) {
+            Yii::info('No inactive user found for submitted email.', __METHOD__);
+
             return false;
         }
 

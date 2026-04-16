@@ -140,24 +140,18 @@ final class UserController extends Controller
         $params = Yii::$app->params;
 
         if ($model->load($post) && $model->validate()) {
-            $sent = $model->sendEmail(
+            $model->sendEmail(
                 $this->mailer,
                 $params['supportEmail'],
                 Yii::$app->name,
             );
 
-            if ($sent) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            }
-
             Yii::$app->session->setFlash(
-                'error',
-                'Sorry, we are unable to reset password for the provided email address.',
+                'success',
+                'If an account with that email exists, instructions to reset the password have been sent.',
             );
 
-            return $this->redirect(['user/request-password-reset']);
+            return $this->goHome();
         }
 
         if ($this->request->isPost && $model->hasErrors()) {
@@ -184,27 +178,18 @@ final class UserController extends Controller
         $params = Yii::$app->params;
 
         if ($model->load($post) && $model->validate()) {
-            $sent = $model->sendEmail(
+            $model->sendEmail(
                 $this->mailer,
                 $params['supportEmail'],
                 Yii::$app->name,
             );
 
-            if ($sent) {
-                Yii::$app->session->setFlash(
-                    'success',
-                    'Check your email for further instructions.',
-                );
-
-                return $this->goHome();
-            }
-
             Yii::$app->session->setFlash(
-                'error',
-                'Sorry, we are unable to resend verification email for the provided email address.',
+                'success',
+                'If an account with that email exists, a verification email has been sent.',
             );
 
-            return $this->redirect(['user/resend-verification-email']);
+            return $this->goHome();
         }
 
         if ($this->request->isPost && $model->hasErrors()) {
