@@ -30,6 +30,46 @@ final class LoginFormTest extends \Codeception\Test\Unit
         ];
     }
 
+    public function testGetUserQueriesDatabaseOnlyOnceWhenUserDoesNotExist(): void
+    {
+        $model = new LoginForm(
+            [
+                'username' => 'not_existing_username',
+                'password' => 'irrelevant',
+            ],
+        );
+
+        $originalLogger = Yii::getLogger();
+        $realLogger = new \yii\log\Logger();
+
+        Yii::setLogger($realLogger);
+
+        try {
+            verify($model->getUser())
+                ->null(
+                    "Failed asserting that 'getUser()' returns 'null' on the first call for a non-existent username.",
+                );
+
+            $countAfterFirst = $this->countDbQueries($realLogger);
+
+            verify($model->getUser())
+                ->null(
+                    "Failed asserting that 'getUser()' returns 'null' on the second call for a non-existent username.",
+                );
+
+            $countAfterSecond = $this->countDbQueries($realLogger);
+
+            verify($countAfterSecond)
+                ->equals(
+                    $countAfterFirst,
+                    "Failed asserting that the second 'getUser()' call issues no additional DB queries; "
+                    . "expected {$countAfterFirst}, got {$countAfterSecond}.",
+                );
+        } finally {
+            Yii::setLogger($originalLogger);
+        }
+    }
+
     public function testLoginCorrect(): void
     {
         $model = new LoginForm(
@@ -154,5 +194,24 @@ final class LoginFormTest extends \Codeception\Test\Unit
     protected function _after(): void
     {
         Yii::$app->user->logout();
+    }
+
+    private function countDbQueries(\yii\log\Logger $logger): int
+    {
+        $count = 0;
+
+        foreach ($logger->messages as $message) {
+            if (!is_array($message)) {
+                continue;
+            }
+
+            $category = $message[2] ?? null;
+
+            if (is_string($category) && str_starts_with($category, 'yii\db\Command::query')) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }
