@@ -22,3 +22,4 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - docs: document the Vite HMR development workflow (`npm run dev` + `YII_ENV=dev ./yii serve`) in `README.md`.
 - docs: document the validate-before-call contract on `ResetPasswordForm::resetPassword()`.
 - fix(security): replace user-disclosing validation message in `PasswordResetRequestForm` and `ResendVerificationEmailForm` to mitigate user enumeration.
+- fix: cache negative lookup in `LoginForm::getUser()` via a `userLoaded` flag to avoid a second `User::findByUsername()` DB query on repeated calls.

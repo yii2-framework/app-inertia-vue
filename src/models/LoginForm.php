@@ -33,9 +33,17 @@ class LoginForm extends Model
     public string $username = '';
 
     /**
-     * Resolved user instance, or `null` when not yet loaded or not found.
+     * Resolved user instance, or `null` when not found.
+     *
+     * Loaded state is tracked by {@see self::$userLoaded} so a `null` result
+     * (user not found) is cached and does not trigger a repeated DB lookup.
      */
     private User|null $user = null;
+
+    /**
+     * Whether {@see self::getUser()} has already resolved the user from the database.
+     */
+    private bool $userLoaded = false;
 
     /**
      * Finds user by {@see self::$username}.
@@ -44,8 +52,9 @@ class LoginForm extends Model
      */
     public function getUser(): User|null
     {
-        if ($this->user === null) {
+        if (!$this->userLoaded) {
             $this->user = User::findByUsername($this->username);
+            $this->userLoaded = true;
         }
 
         return $this->user;
