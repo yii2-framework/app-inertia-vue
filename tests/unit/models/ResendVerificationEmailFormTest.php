@@ -58,6 +58,58 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             );
     }
 
+    public function testExceptionDuringSaveRollsBackTransaction(): void
+    {
+        $fixtureUser = User::findOne(['username' => 'test.test']);
+
+        self::assertInstanceOf(
+            User::class,
+            $fixtureUser,
+            "Failed asserting that fixture user 'test.test' exists.",
+        );
+
+        $originalToken = $fixtureUser->verification_token;
+
+        $handler = static function (): void {
+            throw new RuntimeException('Forced exception during user save.');
+        };
+
+        Event::on(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+
+        try {
+            $model = new ResendVerificationEmailForm();
+
+            $model->attributes = ['email' => 'test.test@example.com'];
+
+            $supportEmail = Yii::$app->params['supportEmail'];
+
+            verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->false(
+                    "Failed asserting that sendEmail returns 'false' when the transaction block throws.",
+                );
+        } finally {
+            Event::off(User::class, BaseActiveRecord::EVENT_BEFORE_UPDATE, $handler);
+        }
+
+        $user = User::findOne(['username' => 'test.test']);
+
+        self::assertInstanceOf(
+            User::class,
+            $user,
+            "Failed asserting that fixture user 'test.test' exists.",
+        );
+        self::assertSame(
+            $originalToken,
+            $user->verification_token,
+            'Failed asserting that transaction rollback preserved the original verification token.',
+        );
+        self::assertSame(
+            [],
+            $this->tester?->grabSentEmails() ?? [],
+            'Failed asserting that no email was dispatched after transaction rollback.',
+        );
+    }
+
     public function testInvalidEmailFormatFailsValidation(): void
     {
         $model = new ResendVerificationEmailForm();
@@ -100,27 +152,61 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
         $this->tester?->seeEmailIsSent(1);
     }
 
-    public function testRateLimitNormalizesEmailCase(): void
+    public function testRateLimitDoesNotBlockLegitimateCaseAfterMismatchedCase(): void
     {
         $supportEmail = Yii::$app->params['supportEmail'];
 
-        $first = new ResendVerificationEmailForm();
+        $mismatched = new ResendVerificationEmailForm();
 
-        $first->attributes = ['email' => 'test.test@example.com'];
+        $mismatched->attributes = ['email' => 'TEST.TEST@EXAMPLE.COM'];
 
-        verify($first->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
-            ->true(
-                'Failed asserting that first sendEmail call succeeds for a lowercase email.',
-            );
-
-        $second = new ResendVerificationEmailForm();
-
-        $second->attributes = ['email' => 'TEST.TEST@EXAMPLE.COM'];
-
-        verify($second->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+        verify($mismatched->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
             ->false(
-                'Failed asserting that rate-limit applies regardless of email case.',
+                "Failed asserting that 'sendEmail' returns 'false' for a case-mismatched address (lookup misses).",
             );
+
+        $legit = new ResendVerificationEmailForm();
+
+        $legit->attributes = ['email' => 'test.test@example.com'];
+
+        verify($legit->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->true(
+                'Failed asserting that a legitimate case-correct resend is not blocked by a prior case-mismatched request.',
+            );
+    }
+
+    public function testRateLimitFailsOpenWhenCacheBackendWriteFails(): void
+    {
+        $failingCache = new class extends \yii\caching\ArrayCache {
+            public function add($key, $value, $duration = 0, $dependency = null)
+            {
+                return false;
+            }
+
+            public function exists($key)
+            {
+                return false;
+            }
+        };
+
+        $originalCache = Yii::$app->get('cache');
+
+        Yii::$app->set('cache', $failingCache);
+
+        try {
+            $model = new ResendVerificationEmailForm();
+
+            $model->attributes = ['email' => 'test.test@example.com'];
+
+            $supportEmail = Yii::$app->params['supportEmail'];
+
+            verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->true(
+                    "Failed asserting that 'sendEmail' fails open when the cache backend rejects writes.",
+                );
+        } finally {
+            Yii::$app->set('cache', $originalCache);
+        }
     }
 
     public function testResendToActiveUser(): void
