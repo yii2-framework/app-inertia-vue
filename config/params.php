@@ -15,4 +15,5 @@ return [
     'user.emailVerificationTokenExpire' => 86400,
     'user.passwordMinLength' => 8,
     'user.passwordResetTokenExpire' => 3600,
+    'user.resendVerificationEmailCooldown' => 60,
 ];

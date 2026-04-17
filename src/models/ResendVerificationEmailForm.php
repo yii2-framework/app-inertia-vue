@@ -54,6 +54,18 @@ final class ResendVerificationEmailForm extends Model
      */
     public function sendEmail(MailerInterface $mailer, string $supportEmail, string $appName): bool
     {
+        $cooldown = Yii::$app->params['user.resendVerificationEmailCooldown'];
+
+        if ($cooldown > 0) {
+            $cacheKey = 'resend-verification-email:' . sha1(strtolower(trim($this->email)));
+
+            if (Yii::$app->cache->add($cacheKey, 1, $cooldown) === false) {
+                Yii::info('Resend verification email rate-limited.', __METHOD__);
+
+                return false;
+            }
+        }
+
         $user = User::findOne(
             [
                 'email' => $this->email,
@@ -89,6 +101,20 @@ final class ResendVerificationEmailForm extends Model
 
             Yii::error(
                 $e->getMessage(),
+                __METHOD__,
+            );
+
+            return false;
+        }
+
+        $committedToken = User::find()
+            ->select(['verification_token'])
+            ->where(['id' => $user->id])
+            ->scalar();
+
+        if ($committedToken !== $user->verification_token) {
+            Yii::warning(
+                'Verification token was overwritten by a concurrent request before send; aborting.',
                 __METHOD__,
             );
 

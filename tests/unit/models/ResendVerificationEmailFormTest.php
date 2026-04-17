@@ -75,6 +75,54 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             );
     }
 
+    public function testRateLimitBlocksRapidResend(): void
+    {
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        $first = new ResendVerificationEmailForm();
+
+        $first->attributes = ['email' => 'test.test@example.com'];
+
+        verify($first->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->true(
+                'Failed asserting that first sendEmail call succeeds before rate-limit engages.',
+            );
+
+        $second = new ResendVerificationEmailForm();
+
+        $second->attributes = ['email' => 'test.test@example.com'];
+
+        verify($second->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->false(
+                "Failed asserting that second sendEmail call returns 'false' while cooldown is active.",
+            );
+
+        $this->tester?->seeEmailIsSent(1);
+    }
+
+    public function testRateLimitNormalizesEmailCase(): void
+    {
+        $supportEmail = Yii::$app->params['supportEmail'];
+
+        $first = new ResendVerificationEmailForm();
+
+        $first->attributes = ['email' => 'test.test@example.com'];
+
+        verify($first->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->true(
+                'Failed asserting that first sendEmail call succeeds for a lowercase email.',
+            );
+
+        $second = new ResendVerificationEmailForm();
+
+        $second->attributes = ['email' => 'TEST.TEST@EXAMPLE.COM'];
+
+        verify($second->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+            ->false(
+                'Failed asserting that rate-limit applies regardless of email case.',
+            );
+    }
+
     public function testResendToActiveUser(): void
     {
         $model = new ResendVerificationEmailForm();
@@ -130,6 +178,56 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             ->false(
                 "Failed asserting that sendEmail returns 'false' when inactive user is not found.",
             );
+    }
+
+    public function testStaleTokenDetectedBeforeSend(): void
+    {
+        $sentinelToken = 'concurrent_overwrite_sentinel_token_value';
+
+        $handler = static function (Event $event) use ($sentinelToken): void {
+            /** @var User $sender */
+            $sender = $event->sender;
+
+            User::updateAll(
+                ['verification_token' => $sentinelToken],
+                ['id' => $sender->id],
+            );
+        };
+
+        Event::on(User::class, BaseActiveRecord::EVENT_AFTER_UPDATE, $handler);
+
+        try {
+            $model = new ResendVerificationEmailForm();
+
+            $model->attributes = ['email' => 'test.test@example.com'];
+
+            $supportEmail = Yii::$app->params['supportEmail'];
+
+            verify($model->sendEmail(Yii::$app->mailer, $supportEmail, Yii::$app->name))
+                ->false(
+                    "Failed asserting that sendEmail returns 'false' when the token was overwritten before send.",
+                );
+        } finally {
+            Event::off(User::class, BaseActiveRecord::EVENT_AFTER_UPDATE, $handler);
+        }
+
+        $user = User::findOne(['username' => 'test.test']);
+
+        self::assertInstanceOf(
+            User::class,
+            $user,
+            "Failed asserting that fixture user 'test.test' exists.",
+        );
+        self::assertSame(
+            $sentinelToken,
+            $user->verification_token,
+            'Failed asserting that the concurrent overwrite was persisted in DB.',
+        );
+        self::assertSame(
+            [],
+            $this->tester?->grabSentEmails() ?? [],
+            'Failed asserting that no email was dispatched when a stale token was detected.',
+        );
     }
 
     public function testSuccessfullyResend(): void
@@ -304,5 +402,10 @@ final class ResendVerificationEmailFormTest extends \Codeception\Test\Unit
             ->false(
                 "Failed asserting that 'sendEmail' returns 'false' for an unknown email address.",
             );
+    }
+
+    protected function _before(): void
+    {
+        Yii::$app->cache->flush();
     }
 }

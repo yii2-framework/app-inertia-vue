@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\models\User;
 use app\tests\support\MailerBootstrap;
+use yii\caching\FileCache;
 use yii\inertia\{Manager, Vite};
 use yii\inertia\vue\Bootstrap;
 use yii\rbac\PhpManager;
@@ -33,6 +34,9 @@ return [
         ],
         'authManager' => [
             'class' => PhpManager::class,
+        ],
+        'cache' => [
+            'class' => FileCache::class,
         ],
         'db' => require __DIR__ . '/test_db.php',
         'inertia' => [
